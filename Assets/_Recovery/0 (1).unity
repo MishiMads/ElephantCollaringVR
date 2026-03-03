@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f613280c20f9cc429ae3506e642ccc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RAGDatabase
-  ragFile: Elephant Conservation experience.txt
+  ragFile: phinda_lore.txt
 --- !u!1 &2092139007
 GameObject:
   m_ObjectHideFlags: 0
