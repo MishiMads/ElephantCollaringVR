@@ -2,6 +2,7 @@
   "dependencies": {
     "ai.undream.llm": "https://github.com/undreamai/LLMUnity.git",
     "com.meta.xr.sdk.all": "85.0.0",
+    "com.srcnalt.openai-unity": "https://github.com/srcnalt/OpenAI-Unity.git",
     "com.unity.feature.development": "1.0.2",
     "com.unity.ide.rider": "3.0.38",
     "com.unity.inputsystem": "1.15.0",
