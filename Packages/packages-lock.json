@@ -7,7 +7,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "63b79c5674bf8b160e70d9c2c982a5974c717b14"
+      "hash": "306f69a1e4434192ec0ac768531451b14bc3fd6b"
     },
     "com.meta.xr.mrutilitykit": {
       "version": "85.0.0",
@@ -447,15 +447,6 @@
         "com.unity.xr.core-utils": "2.2.1",
         "com.unity.modules.subsystems": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "2.1.11"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.mock-hmd": {
-      "version": "1.5.0-exp.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.xr.management": "4.5.3"
       },
       "url": "https://packages.unity.com"
     },
