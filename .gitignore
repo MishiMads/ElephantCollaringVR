@@ -100,5 +100,7 @@ InitTestScene*.unity*
 
 
 /[Aa]ssets/StreamingAssets/
+/[Aa]ssets/LLMModels/
+
 
 whisper-tiny

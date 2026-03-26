@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &248045196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1696,14 +1696,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LLMUnitySamples.LLMWithRAG
   rag: {fileID: 6871746021492448987}
-  playerText: {fileID: 960597137614731705}
+  playerText: {fileID: 5600844355011059754}
   AIText: {fileID: 520042639}
-  HamletText: {fileID: 0}
+  HamletText: {fileID: 4900000, guid: 794daf7de99ad5b458d299e287009f12, type: 3}
   sourceText: {fileID: 4900000, guid: 794daf7de99ad5b458d299e287009f12, type: 3}
+  chunkSize: 400
+  chunkOverlap: 50
   llmAgent: {fileID: 8202165847074437324}
   ttsSpeakerInput: {fileID: 2081875888}
-  topK: 3
-  maxContextChars: 2400
 --- !u!114 &1909115823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Whisper.Samples.WhisperBridgeScript
   whisper: {fileID: 2797398771349753094}
   microphoneRecord: {fileID: 1909115824}
-  llmOutputText: {fileID: 520042639}
+  llmOutputText: {fileID: 1654647065976510812}
   LLMWithRAGScript: {fileID: 1909115822}
   useStreamingSegments: 0
 --- !u!114 &1909115824
@@ -2405,6 +2405,7 @@ GameObject:
   - component: {fileID: 6871746021492448987}
   - component: {fileID: 4820755074951725789}
   - component: {fileID: 3106318367773647534}
+  - component: {fileID: 7665001591371231938}
   m_Layer: 0
   m_Name: RAG
   m_TagString: Untagged
@@ -3498,8 +3499,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6809285068617782977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.58310175}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4677,8 +4678,10 @@ MonoBehaviour:
   rag: {fileID: 6871746021492448987}
   playerText: {fileID: 0}
   AIText: {fileID: 0}
-  HamletText: {fileID: 0}
+  HamletText: {fileID: 4900000, guid: 145dfa55295462fa4bc804a75d8ba9c1, type: 3}
   sourceText: {fileID: 0}
+  chunkSize: 400
+  chunkOverlap: 50
   llmAgent: {fileID: 8202165847074437324}
   ParaphraseWithLLM: {fileID: 0}
 --- !u!114 &2245114881293489782
@@ -9182,7 +9185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.17822656, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.499939, y: -0.5}
+  m_AnchoredPosition: {x: -2.4999695, y: -0.5}
   m_SizeDelta: {x: -5, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5871388472964633383
@@ -9675,7 +9678,7 @@ RectTransform:
   m_Father: {fileID: 5832201691817935407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10267,8 +10270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchType: 1
   search: {fileID: 3106318367773647534}
-  chunkingType: 0
-  chunking: {fileID: 0}
+  chunkingType: 2
+  chunking: {fileID: 7665001591371231938}
 --- !u!114 &6873086377076065075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11483,6 +11486,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7665001591371231938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293655814901477465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848a185d03c8d0bd4a047284c9a13bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: undream.llmunity.Runtime::LLMUnity.WordSplitter
+  numWords: 10
 --- !u!1 &7673416918733250893
 GameObject:
   m_ObjectHideFlags: 0
@@ -12257,8 +12273,7 @@ MonoBehaviour:
   _slot: -1
   _systemPrompt: "You are an expert in elephant conservation and elephant collaring
     in Namibia. \nYour goal is to answer questions and provide teach about elephant
-    conservation and collaring.\nKeep the answers very brief as in only a couple
-    of lines."
+    conservation and collaring."
 --- !u!222 &8226585557327950540
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13245,7 +13260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.17822656, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.499939, y: -0.5}
+  m_AnchoredPosition: {x: -2.4999695, y: -0.5}
   m_SizeDelta: {x: -5, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &9012908831553798459
