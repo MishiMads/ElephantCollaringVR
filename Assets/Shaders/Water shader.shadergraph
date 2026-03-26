@@ -2666,11 +2666,11 @@
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
-    "m_Value": 0.44999998807907107,
+    "m_Value": 0.5,
     "m_FloatType": 1,
     "m_RangeValues": {
-        "x": 0.44999998807907107,
-        "y": 0.75
+        "x": 0.5,
+        "y": 0.6150000095367432
     },
     "m_SliderType": 0,
     "m_SliderPower": 3.0,
@@ -2905,7 +2905,7 @@
     "m_Title": "Wobble",
     "m_Position": {
         "x": -2357.999755859375,
-        "y": -931.3333129882813
+        "y": -931.3333740234375
     }
 }
 
