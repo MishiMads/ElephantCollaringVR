@@ -10533,10 +10533,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slow Run (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10547,9 +10543,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 771299506}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 771299508}
   m_SourcePrefab: {fileID: 100100000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
 --- !u!1 &771299505 stripped
 GameObject:
@@ -10585,28 +10578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafe4745727667f4fb17e769255a82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!195 &771299508
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 771299505}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  targetX: 1.509
+  speed: 1
 --- !u!1 &783485968
 GameObject:
   m_ObjectHideFlags: 0
@@ -17465,7 +17438,7 @@ GameObject:
   - component: {fileID: 1401268294}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Target
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18896,31 +18869,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6349192
+      value: 0.5835136
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1552674
+      value: 0.18717286
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6993345
+      value: 0.75354576
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.2893111
+      value: -0.23800664
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 37
+      value: 35.249
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 91.891
+      value: 104.591
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -10.841
+      value: 0.304
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_Name
@@ -20299,10 +20272,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slow Run (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20313,9 +20282,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1627872800}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1627872802}
   m_SourcePrefab: {fileID: 100100000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
 --- !u!1 &1627872799 stripped
 GameObject:
@@ -20351,28 +20317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafe4745727667f4fb17e769255a82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!195 &1627872802
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627872799}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  targetX: 1.509
+  speed: 1
 --- !u!1 &1634252274
 GameObject:
   m_ObjectHideFlags: 0
@@ -21774,16 +21720,7 @@ PrefabInstance:
       addedObject: {fileID: 1816949794}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1816949799}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1816949798}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1816949800}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1816949801}
+      addedObject: {fileID: 1816949796}
   m_SourcePrefab: {fileID: 100100000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
 --- !u!1 &1757819553
 GameObject:
@@ -22833,85 +22770,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafe4745727667f4fb17e769255a82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!195 &1816949798
-NavMeshAgent:
+  targetX: 1.509
+  speed: 1
+--- !u!111 &1816949796
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816949793}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.45
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!95 &1816949799
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816949793}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 614fc891d4be5a640ad209e4cee13bc4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
+  serializedVersion: 4
+  m_Animation: {fileID: -203655887218126122, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
+  m_Animations:
+  - {fileID: -203655887218126122, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1816949800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816949793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3e2da171cfe7294aac2291bfe072993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollisionGrass
---- !u!136 &1816949801
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816949793}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.2541836
-  m_Height: 1.4698986
-  m_Direction: 1
-  m_Center: {x: -0.24581647, y: 0.64285165, z: -5.94507e-17}
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &1823719980
 GameObject:
   m_ObjectHideFlags: 0
@@ -29121,10 +28998,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slow Run (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29135,9 +29008,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1903938597}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1903938599}
   m_SourcePrefab: {fileID: 100100000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
 --- !u!1 &1903938596 stripped
 GameObject:
@@ -29173,28 +29043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafe4745727667f4fb17e769255a82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!195 &1903938599
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1903938596}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  targetX: 1.509
+  speed: 1
 --- !u!1 &1904334661
 GameObject:
   m_ObjectHideFlags: 0
@@ -30052,70 +29902,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964342771}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1968715516
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1968715518}
-  - component: {fileID: 1968715517}
-  m_Layer: 0
-  m_Name: NavMesh Surface
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1968715517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968715516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: fcfb95c3c8752c14e9167f9e4a4eaaec, type: 2}
-  m_BuildHeightMesh: 0
---- !u!4 &1968715518
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1968715516}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22516, y: 1.18859, z: -0.10333}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972216908
 GameObject:
   m_ObjectHideFlags: 0
@@ -31146,10 +30932,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slow Run (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31160,9 +30942,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2084862153}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2084862155}
   m_SourcePrefab: {fileID: 100100000, guid: 83154aa9dd8d5604780ec3c1f737d6d9, type: 3}
 --- !u!1 &2084862152 stripped
 GameObject:
@@ -31198,28 +30977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafe4745727667f4fb17e769255a82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!195 &2084862155
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084862152}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 2
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  targetX: 1.509
+  speed: 1
 --- !u!1 &2089359978
 GameObject:
   m_ObjectHideFlags: 0
@@ -32001,7 +31760,6 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1968715518}
   - {fileID: 1028042435}
   - {fileID: 1407376991}
   - {fileID: 1660126246}

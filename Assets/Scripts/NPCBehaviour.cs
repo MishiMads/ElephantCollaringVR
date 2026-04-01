@@ -1,17 +1,51 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCBehaviour : MonoBehaviour
 {
-    public float targetX = -4.08f;
-    public float speed = 2f;
+    private NavMeshAgent agent;
+    private Animator anim;
+    private bool hasArrived = false;
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+
+        // Start by running
+        anim.SetBool("SlowRunning", true);
+
+        GameObject target = GameObject.FindGameObjectWithTag("Target");
+        if (target != null)
+        {
+            agent.SetDestination(target.transform.position);
+        }
+    }
 
     void Update()
     {
-        Vector3 pos = transform.position;
 
-        // Move toward target X
-        pos.x = Mathf.MoveTowards(pos.x, targetX, speed * Time.deltaTime);
+        if (hasArrived) return;
 
-        transform.position = pos;
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            {
+                TriggerCrouchSequence();
+            }
+        }
+    }
+
+    void TriggerCrouchSequence()
+    {
+        hasArrived = true;
+        agent.isStopped = true;
+
+        // Turn off running, turn on the transition to crouch
+        anim.SetBool("SlowRunning", false);
+        anim.SetBool("StandToCrouch", true);
+
+        // This triggers the final idle state
+        anim.SetBool("CrouchToIdle", true);
     }
 }
