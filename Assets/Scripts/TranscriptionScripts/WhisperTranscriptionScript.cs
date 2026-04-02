@@ -53,7 +53,7 @@ namespace Whisper.Samples
             microphoneRecord.vadStop = vadStop;
         }
 
-        private void OnButtonPressed()
+        public void OnButtonPressed()
         {
             if (!microphoneRecord.IsRecording)
             {
