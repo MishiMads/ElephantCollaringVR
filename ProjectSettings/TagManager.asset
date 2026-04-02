@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Anchor
   - Target
+  - Director
+  - Assistant 1
   layers:
   - Default
   - TransparentFX
