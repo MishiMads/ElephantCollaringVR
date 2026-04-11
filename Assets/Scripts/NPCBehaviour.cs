@@ -4,32 +4,43 @@ using UnityEngine.AI;
 public class NPCBehaviour : MonoBehaviour
 {
     public enum NPCRole { Director, Assistant1, Assistant2 }
-
-    [Header("Role Settings")]
     public NPCRole role;
     public string targetTag;
 
     private NavMeshAgent agent;
     private Animator anim;
     private bool hasArrived = false;
-    private GameObject targetObject; // Storing this to reference later
+    private bool isActive = false;
+    private GameObject targetObject;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-
         targetObject = GameObject.FindGameObjectWithTag(targetTag);
-        if (targetObject != null)
+
+        if (agent != null) agent.enabled = false;
+    }
+
+    public void StartNPCLogic()
+    {
+        if (targetObject != null && agent != null)
         {
+            isActive = true;
+            agent.enabled = true;
             agent.SetDestination(targetObject.transform.position);
-            anim.SetBool("SlowRunning", true);
+
+            if (anim != null)
+            {
+                // Start running
+                anim.SetBool("SlowRunning", true);
+            }
         }
     }
 
     void Update()
     {
-        if (hasArrived) return;
+        if (!isActive || hasArrived) return;
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
@@ -44,23 +55,23 @@ public class NPCBehaviour : MonoBehaviour
     {
         hasArrived = true;
         agent.isStopped = true;
-
-        // Make the NPC face the target immediately upon stopping
         FaceTarget();
 
-        anim.SetBool("SlowRunning", false);
-
-        switch (role)
+        if (anim != null)
         {
-            case NPCRole.Director:
-                DirectorArrival();
-                break;
-            case NPCRole.Assistant1:
-                AssistantArrival();
-                break;
-            case NPCRole.Assistant2:
-                Assistant2Arrival();
-                break;
+            // Turn off running
+            anim.SetBool("SlowRunning", false);
+
+            // Trigger the final Idle/Crouch based on role
+            if (role == NPCRole.Director)
+            {
+                anim.SetBool("StandToCrouch", true);
+            }
+            else
+            {
+                // Assistant role
+                anim.SetBool("NormalIdle", true);
+            }
         }
     }
 
@@ -69,29 +80,8 @@ public class NPCBehaviour : MonoBehaviour
         if (targetObject != null)
         {
             Vector3 direction = (targetObject.transform.position - transform.position).normalized;
-            direction.y = 0; // Keep the NPC upright so they don't tilt up/down
-
-            if (direction != Vector3.zero)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-                transform.rotation = lookRotation;
-            }
+            direction.y = 0;
+            if (direction != Vector3.zero) transform.rotation = Quaternion.LookRotation(direction);
         }
-    }
-
-    void DirectorArrival()
-    {
-        anim.SetBool("StandToCrouch", true);
-        anim.SetBool("CrouchToIdle", true);
-    }
-
-    void AssistantArrival()
-    {
-        anim.SetBool("NormalIdle", true);
-    }
-
-    void Assistant2Arrival()
-    {
-        anim.SetBool("NormalIdle", true);
     }
 }
