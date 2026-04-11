@@ -98,6 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8570392446359831589}
+  - component: {fileID: -5528103568105512161}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -114,10 +115,28 @@ Transform:
   m_GameObject: {fileID: 9060105732351352479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.59712, y: 0.08929396, z: -8.732719}
+  m_LocalPosition: {x: 0.8958463, y: -0.1338107, z: 2.8686135}
   m_LocalScale: {x: 0.95, y: 0.58, z: 0.62}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 939829967282783455}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &-5528103568105512161
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060105732351352479}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.003061886
+    fadeTransitionWidth: 0
+    renderers: []
+  m_Enabled: 1

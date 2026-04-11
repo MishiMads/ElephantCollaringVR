@@ -22,6 +22,9 @@ Shader "Custom/StoneShader"
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
 
+        // =========================
+        // FORWARD LIT PASS
+        // =========================
         Pass
         {
             Name "ForwardLit"
@@ -31,8 +34,12 @@ Shader "Custom/StoneShader"
             #pragma vertex vert
             #pragma fragment frag
 
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
 
             struct Attributes
             {
@@ -48,6 +55,7 @@ Shader "Custom/StoneShader"
                 float3 positionWS : TEXCOORD1;
                 float3 normalWS : TEXCOORD2;
                 float3 viewDirWS : TEXCOORD3;
+                float4 shadowCoord : TEXCOORD4;
             };
 
             TEXTURE2D(_BaseMap);
@@ -78,6 +86,7 @@ Shader "Custom/StoneShader"
                 OUT.normalWS = normalize(normInputs.normalWS);
                 OUT.viewDirWS = GetWorldSpaceViewDir(posInputs.positionWS);
                 OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
+                OUT.shadowCoord = GetShadowCoord(posInputs);
 
                 return OUT;
             }
@@ -90,22 +99,29 @@ Shader "Custom/StoneShader"
                 float3 smoothNormal = normalize(IN.normalWS);
                 float3 viewDir = normalize(IN.viewDirWS);
 
+                // Face normal (flat shading effect)
                 float3 dpdx = ddx(IN.positionWS);
                 float3 dpdy = ddy(IN.positionWS);
                 float3 faceNormal = normalize(cross(dpdx, dpdy));
 
                 if (dot(faceNormal, smoothNormal) < 0.0)
-                {
                     faceNormal = -faceNormal;
-                }
 
-                Light mainLight = GetMainLight();
-                float NdotL = saturate(dot(faceNormal, mainLight.direction));
+                // Lighting + shadows
+                Light mainLight = GetMainLight(IN.shadowCoord);
+                float shadow = mainLight.shadowAttenuation;
+
+                float3 lightDir = normalize(mainLight.direction);
+                float NdotL = saturate(dot(faceNormal, lightDir));
+
                 float lightTerm = lerp(_ShadowStrength, _LightStrength, NdotL);
+                lightTerm *= shadow;
 
+                // Cavity shading
                 float normalDiff = 1.0 - saturate(dot(smoothNormal, faceNormal));
                 float cavityMask = pow(saturate(normalDiff * _CavityStrength), _CavityPower);
 
+                // Rim lighting
                 float rim = 1.0 - saturate(dot(faceNormal, viewDir));
                 rim = pow(rim, _RimPower) * _RimStrength;
                 rim = saturate(rim);
@@ -116,6 +132,26 @@ Shader "Custom/StoneShader"
 
                 return float4(col, tex.a * _BaseColor.a);
             }
+
+            ENDHLSL
+        }
+
+        // =========================
+        // SHADOW CASTER PASS
+        // =========================
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags { "LightMode" = "ShadowCaster" }
+
+            ZWrite On
+            ZTest LEqual
+
+            HLSLPROGRAM
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
 
             ENDHLSL
         }

@@ -29,6 +29,8 @@ namespace Whisper.Samples
         
         private string _buffer;
 
+        public TMPro.TMP_Text stateText;
+
         private void Awake()
         {
             whisper.OnNewSegment += OnNewSegment;
@@ -57,13 +59,16 @@ namespace Whisper.Samples
         {
             if (!microphoneRecord.IsRecording)
             {
+                microphoneRecord.StopRecord();
                 microphoneRecord.StartRecord();
+                stateText.text = "Listening...";
                 buttonText.text = "Stop";
             }
             else
             {
                 microphoneRecord.StopRecord();
                 buttonText.text = "Record";
+                stateText.text = "Processing...";
             }
         }
         
