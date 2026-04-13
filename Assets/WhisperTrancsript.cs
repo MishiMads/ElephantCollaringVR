@@ -1,6 +1,8 @@
+using Meta.XR.ImmersiveDebugger.UserInterface.Generic;
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Whisper.Utils;
 
 namespace Whisper.Samples
@@ -9,6 +11,7 @@ namespace Whisper.Samples
     {
         public WhisperManager whisper;
         public MicrophoneRecord microphoneRecord;
+        public ConversationManager conversationManager;
         public TMPro.TMP_Text stateText;
 
         [Header("Options")]
@@ -145,12 +148,20 @@ namespace Whisper.Samples
 
             OnStateChanged?.Invoke(newState);
         }
+        public void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                OnPeaceSignDetected();
+            }
+
+        }
 
         public void OnPeaceSignDetected()
         {
-            
+            UnityEngine.Debug.Log("Peace gesture triggered");
             if (CurrentState == "Idle")
-                StartRecording();
+                conversationManager.StartPlayerRecording();
         }
     }
 

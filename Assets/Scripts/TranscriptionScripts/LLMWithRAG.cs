@@ -1,9 +1,11 @@
-using UnityEngine.UI;
 using LLMUnity;
+using Meta.WitAi.TTS.Utilities;
 using Meta.WitAi.TTS.UX;
-using UnityEngine;
+using System.Collections;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace LLMUnitySamples
 {
@@ -13,9 +15,15 @@ namespace LLMUnitySamples
         [SerializeField] private TextToSpeech ttsSpeakerInput;
         [SerializeField] private int topK = 3;
         [SerializeField] private int maxContextChars = 2400;
+        private bool replySent = false;
+
+        public ConversationManager conversationManager;
+        public TTSSpeaker speaker;
 
         private bool _ragReady;
         private Task _initTask;
+
+        private bool isGenerating = false;
 
         async void Start()
         {
@@ -57,8 +65,41 @@ namespace LLMUnitySamples
             onInputFieldSubmit(message);
         }
 
+        public async void SubmitDirectLLM(string message)
+        {
+            if (llmAgent == null) return;
+
+            // 🚫 PREVENT DUPLICATES
+            if (isGenerating)
+            {
+                Debug.Log("LLM already generating, skipping...");
+                return;
+            }
+
+            isGenerating = true;
+
+            string response = "";
+
+            await llmAgent.Chat(message, token =>
+            {
+                if (!string.IsNullOrEmpty(token))
+                {
+                    response = token;
+                    if (AIText != null) AIText.text = response;
+                }
+            });
+
+            isGenerating = false;
+
+            AIReplyComplete();
+        }
+
         protected override async void onInputFieldSubmit(string message)
         {
+
+            // 🚫 BLOCK LLM HERE
+            
+
             if (string.IsNullOrWhiteSpace(message))
             {
                 AIReplyComplete();
@@ -127,6 +168,7 @@ namespace LLMUnitySamples
             string response = "";
             await llmAgent.Chat(prompt, token =>
             {
+
                 if (!string.IsNullOrEmpty(token))
                 {
                     response = token;          // ← assign, not append
@@ -134,32 +176,71 @@ namespace LLMUnitySamples
                 }
             });
 
+            
+
             if (string.IsNullOrWhiteSpace(response))
                 AIText.text = "I don't know based on the provided context.";
 
+            if (conversationManager == null || conversationManager.allowLLM)
+            {
+                AIReplyComplete();
+            }
+            else
+            {
+                Debug.Log("Skipped AIReplyComplete (LLM disabled)");
+            }
             AIReplyComplete();
         }
 
         protected new void AIReplyComplete()
         {
+            if (replySent)
+            {
+                Debug.Log("AIReplyComplete skipped (already sent)");
+                return;
+            }
+
+            replySent = true;
+
             base.AIReplyComplete();
-            TrySpeakCurrentAiText();
+
+            if (conversationManager != null)
+            {
+                conversationManager.OnLLMResponseReady(AIText.text);
+            }
+
+            // reset next frame
+            StartCoroutine(ResetReplyFlag());
+        }
+
+        IEnumerator ResetReplyFlag()
+        {
+            yield return null;
+            replySent = false;
         }
 
         private void TrySpeakCurrentAiText()
         {
-            if (ttsSpeakerInput == null)
-                ttsSpeakerInput = GetComponent<TextToSpeech>();
+            
 
             string reply = AIText != null ? AIText.text : string.Empty;
-            if (ttsSpeakerInput != null && !string.IsNullOrWhiteSpace(reply) && reply != "...")
-                ttsSpeakerInput.SpeakText(reply);
+
+            if (speaker != null && !string.IsNullOrWhiteSpace(reply) && reply != "...")
+            {
+                speaker.Stop(); // ✅ now works
+                speaker.Speak(reply);
+            }
         }
 
         public void CancelRequests()
         {
             llmAgent?.CancelRequests();
-            AIReplyComplete();
+
+            // 🔥 CRITICAL: clear any pending response
+            if (AIText != null) AIText.text = "";
+
+            // 🔥 prevent AIReplyComplete from speaking
+            StopAllCoroutines();
         }
 
         protected override void CheckLLMs(bool debug)

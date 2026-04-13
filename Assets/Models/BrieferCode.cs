@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BrieferCode : MonoBehaviour
@@ -10,6 +11,8 @@ public class BrieferCode : MonoBehaviour
     [Range(0f, 1f)] public float headWeight = 0.8f;
     [Range(0f, 1f)] public float eyesWeight = 1f;
     [Range(0f, 1f)] public float clampWeight = 0.5f;
+
+    public List<string> dialogue;
 
     void Start()
     {

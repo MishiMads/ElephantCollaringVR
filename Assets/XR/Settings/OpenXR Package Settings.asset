@@ -427,9 +427,81 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e314dfef9af0904e80129bcc0a79361, type: 3}
-  m_Name: HandTracking Standalone
-  m_EditorClassIdentifier: Unity.XR.Hands::UnityEngine.XR.Hands.OpenXR.HandTracking
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: Standalone
+  m_EditorClassIdentifier: 
+  features:
+  - {fileID: -6279212148996162835}
+  - {fileID: -3975452482949505274}
+  - {fileID: -1313831983756075038}
+  - {fileID: -886415874038818483}
+  - {fileID: -7128304295393568976}
+  - {fileID: -7195695307068326699}
+  - {fileID: -1207330323347143418}
+  - {fileID: -8086447034288800207}
+  - {fileID: -2848422180841306796}
+  - {fileID: 5884058607842466990}
+  - {fileID: 5453906885006795104}
+  - {fileID: -4063098924297227189}
+  - {fileID: -1219420621360422253}
+  - {fileID: -8891419915277989205}
+  - {fileID: -8220781366413683400}
+  - {fileID: -2632036402318596900}
+  - {fileID: 7461244901931835313}
+  - {fileID: 1899199988088519695}
+  - {fileID: 5356499721767166187}
+  - {fileID: 1571100802476220213}
+  - {fileID: -1255617407676331039}
+  - {fileID: -9006725167115301800}
+  - {fileID: 3751020502294189570}
+  - {fileID: 3475109953619096060}
+  - {fileID: -5458299087152305293}
+  m_renderMode: 0
+  m_latencyOptimization: 0
+  m_autoColorSubmissionMode: 1
+  m_colorSubmissionModes:
+    m_List: 00000000
+  m_depthSubmissionMode: 0
+  m_spacewarpMotionVectorTextureFormat: 0
+  m_optimizeBufferDiscards: 0
+  m_symmetricProjection: 0
+  m_optimizeMultiviewRenderRegions: 0
+  m_multiviewRenderRegionsOptimizationMode: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
+  m_foveatedRenderingApi: 0
+  m_useOpenXRPredictedTime: 0
+--- !u!114 &-3438853817411640612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d28f705476c80d47acb3dfade3d3142, type: 3}
+  m_Name: MetaXRFoveationFeature Android
+  m_EditorClassIdentifier: Oculus.VR::Meta.XR.MetaXRFoveationFeature
+  m_enabled: 1
+  nameUi: Meta XR Foveation
+  version: 1.0.0
+  featureIdInternal: com.meta.openxr.feature.foveation
+  openxrExtensionStrings: 'XR_FB_foveation XR_FB_foveation_configuration XR_FB_foveation_vulkan '
+  company: Meta
+  priority: 0
+  required: 0
+--- !u!114 &-2848422180841306796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6bfdbcb316ed242b30a8798c9eb853, type: 3}
+  m_Name: KHRSimpleControllerProfile Standalone
+  m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Hand Tracking Subsystem
   version: 0.0.1
@@ -1146,43 +1218,43 @@ MonoBehaviour:
   m_Name: Android
   m_EditorClassIdentifier: Unity.XR.OpenXR::UnityEngine.XR.OpenXR.OpenXRSettings
   features:
-  - {fileID: -1046033240669461631}
-  - {fileID: -6416421621161489328}
-  - {fileID: -3317443687534267221}
-  - {fileID: 5849875434801501076}
-  - {fileID: -2061620540022834879}
-  - {fileID: 5011120482984501205}
-  - {fileID: 7039234584137123508}
-  - {fileID: 4042588359767385873}
-  - {fileID: -6791505370353485951}
-  - {fileID: 6475633092202258420}
-  - {fileID: -6791875358431644278}
-  - {fileID: -8254374359063625436}
-  - {fileID: -6374159621812078986}
-  - {fileID: -5676904886552531941}
-  - {fileID: -3798414960905858465}
-  - {fileID: 7219935112464356941}
-  - {fileID: -4336125042310615352}
-  - {fileID: 3671137975960717973}
-  - {fileID: 1279399790386918169}
-  - {fileID: -236245387918841991}
-  - {fileID: -7814159860677388827}
-  - {fileID: -7424211041891342837}
-  - {fileID: -3686239114948352737}
-  - {fileID: 5986706287848600964}
-  - {fileID: -1241307223460816252}
-  - {fileID: -1129605520118882210}
-  - {fileID: 2503017458837489315}
-  - {fileID: 5115559162004228143}
-  - {fileID: 1506360843623611366}
-  - {fileID: 9113146615653881728}
-  - {fileID: 7081949211898400333}
-  - {fileID: 2323374618013461767}
-  - {fileID: -600044245530787603}
-  - {fileID: 8053928262805346863}
-  - {fileID: 3579715361121460771}
-  - {fileID: 3234021094563216052}
-  - {fileID: -1510363828492887644}
+  - {fileID: 2109802480353105152}
+  - {fileID: 484161490036689224}
+  - {fileID: -3688430105879480005}
+  - {fileID: -4954635989753619146}
+  - {fileID: 8023257435433845108}
+  - {fileID: -7540690791875216740}
+  - {fileID: 3766989649424395844}
+  - {fileID: 5701633794459616401}
+  - {fileID: -1761485371701195997}
+  - {fileID: -7340524804024996456}
+  - {fileID: 274347273564094617}
+  - {fileID: -694691595379029039}
+  - {fileID: -4408060079863091760}
+  - {fileID: 1746494006016999158}
+  - {fileID: -1373616026373180638}
+  - {fileID: 5976392199793121378}
+  - {fileID: 3019720769207036487}
+  - {fileID: 6654400094837371283}
+  - {fileID: 2186421709419325700}
+  - {fileID: -5349715603897175064}
+  - {fileID: 3353500098287256246}
+  - {fileID: -6250304471809063370}
+  - {fileID: 3722705845194643570}
+  - {fileID: 953156436224843135}
+  - {fileID: 2642664125763467172}
+  - {fileID: -7277980367008181409}
+  - {fileID: 4740575512065032442}
+  - {fileID: 9110051665951731187}
+  - {fileID: -7844234838074357759}
+  - {fileID: 1606854168952620879}
+  - {fileID: -2780024770031869570}
+  - {fileID: -4285308799766548299}
+  - {fileID: 1441176868064549610}
+  - {fileID: -6131418010296890765}
+  - {fileID: 839976519755560221}
+  - {fileID: 1883700602747445360}
+  - {fileID: -1135292175974394514}
   m_renderMode: 1
   m_latencyOptimization: 0
   m_autoColorSubmissionMode: 1
