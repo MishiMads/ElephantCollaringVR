@@ -1,48 +1,72 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using Oculus.Interaction;
 
 public class MainScript : MonoBehaviour
 {
-    [Header("Target Sockets")]
-    public List<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor> managedSockets;
+    [Header("Snap Logic")]
+    public List<SnapInteractable> managedSnapPoints;
 
-    void OnEnable()
+    [Header("Elephant Logic")]
+    public ElephantMove elephantScript; // Reference to the actual script
+
+    [Header("NPC Logic")]
+    public List<NPCBehaviour> npcScripts; // List of NPC scripts
+
+    private void Start()
     {
-        foreach (var socket in managedSockets)
+        // ---------------------------------------------------------
+        // INITIATE ELEPHANT SCRIPT
+        // ---------------------------------------------------------
+        if (elephantScript != null)
         {
-            if (socket != null)
-            {
-                // Subscribe to events
-                socket.selectEntered.AddListener(OnObjectSocketed);
-                socket.selectExited.AddListener(OnObjectUnsocketed);
-            }
+            elephantScript.InitiateMovement();
         }
     }
 
-    void OnDisable()
+    // ---------------------------------------------------------
+    // SNAP EVENT LOGIC
+    // ---------------------------------------------------------
+    private void OnEnable()
     {
-        foreach (var socket in managedSockets)
+        foreach (var snapPoint in managedSnapPoints)
         {
-            if (socket != null)
-            {
-                // Always unsubscribe to prevent memory leaks
-                socket.selectEntered.RemoveListener(OnObjectSocketed);
-                socket.selectExited.RemoveListener(OnObjectUnsocketed);
-            }
+            if (snapPoint != null)
+                snapPoint.WhenStateChanged += (args) => HandleStateChanged(snapPoint, args);
         }
     }
 
-    private void OnObjectSocketed(SelectEnterEventArgs args)
+    private void OnDisable()
     {
-        string itemName = args.interactableObject.transform.name;
-        string socketName = args.interactorObject.transform.name;
-        Debug.Log($"<color=green>Logic Manager:</color> {itemName} attached to {socketName}");
+        foreach (var snapPoint in managedSnapPoints)
+        {
+            if (snapPoint != null)
+                snapPoint.WhenStateChanged -= (args) => HandleStateChanged(snapPoint, args);
+        }
     }
 
-    private void OnObjectUnsocketed(SelectExitEventArgs args)
+    private void HandleStateChanged(SnapInteractable snapPoint, InteractableStateChangeArgs args)
     {
-        string itemName = args.interactableObject.transform.name;
-        Debug.Log($"<color=red>Logic Manager:</color> {itemName} removed from the socket");
+        if (args.NewState == InteractableState.Select)
+        {
+            Debug.Log($"<color=green>Snapped:</color> {snapPoint.gameObject.name}");
+        }
+    }
+
+    // ---------------------------------------------------------
+    // NPC INITIATION LOGIC
+    // This is called by the ElephantMove script when it arrives
+    // ---------------------------------------------------------
+    public void InitiateNPCs()
+    {
+        Debug.Log("MainScript: Elephant arrived. Starting NPCs...");
+        foreach (var npc in npcScripts)
+        {
+            if (npc != null)
+            {
+                npc.StartNPCLogic();
+            }
+        }
     }
 }
