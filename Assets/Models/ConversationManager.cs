@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using Meta.WitAi.TTS.Utilities;
+using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Meta.WitAi.TTS.Utilities;
 using Whisper.Samples;
 
 public class ConversationManager : MonoBehaviour
@@ -16,15 +17,28 @@ public class ConversationManager : MonoBehaviour
     private bool ignoreNextLLM = false;
     public bool allowLLM = true;
     private bool exitAfterLLM = false;
+    private bool isFreeConversationMode = false;
+
+    private int freeQuestionCount = 0;
+    private bool waitingForProcedureAnswer = false;
+
+    private int questionIndexForProcedure = -1;
+
+    private bool procedureStarted = false;
+
+    public List<GameObject> itemsAndElephant;
+    public List<GameObject> dudesA;
 
     public enum ConversationState
     {
         Idle,
         NPCSpeaking,
+        LLMSpeaking,
         WaitingForPlayer,
         QuestionLoop,
         PlayerSpeaking,
-        Processing
+        Processing,
+        FreeConversation
     }
     bool IsExitKeyword(string text)
     {
@@ -36,6 +50,18 @@ public class ConversationManager : MonoBehaviour
             || text.Contains("that's all")
             || text.Contains("nothing else")
             || text.Contains("you can proceed");
+    }
+
+    bool IsYesKeyword(string text)
+    {
+        text = text.ToLower().Trim();
+
+        return text.StartsWith("yes")
+            || text == "yes"
+            || text.Contains("yeah")
+            || text.Contains("sure")
+            || text.Contains("okay")
+            || text.Contains("ok");
     }
 
     string[] followUps = {
@@ -58,6 +84,15 @@ public class ConversationManager : MonoBehaviour
 
         StartConversation();
     }
+    void SafeSpeak(string text)
+    {
+        if (speaker.IsSpeaking)
+        {
+            speaker.Stop();
+        }
+
+        speaker.Speak(text);
+    }
 
     // 🚀 START
     void StartConversation()
@@ -78,15 +113,24 @@ public class ConversationManager : MonoBehaviour
         var rag = FindObjectOfType<LLMUnitySamples.LLMWithRAG>();
         if (rag != null)
         {
-            rag.CancelRequests(); // stops LLM + TTS
+            if (waitingForLLMResponse)
+            {
+                rag.CancelRequests();
+            } // stops LLM + TTS
         }
 
         speaker.Stop(); // stop own speaker too
 
         if (indexDialogue >= dialogueParts.Count)
         {
-            Debug.Log("Conversation complete.");
-            currentState = ConversationState.Idle;
+            Debug.Log("Dialogue finished → entering free conversation mode");
+
+            currentState = ConversationState.FreeConversation;
+            isFreeConversationMode = true;
+            inQuestionLoop = false;
+
+            SafeSpeak("That’s everything. You can ask me anything now.");
+
             return;
         }
 
@@ -103,17 +147,42 @@ public class ConversationManager : MonoBehaviour
         Debug.Log("LLM says: " + text);
 
         speaker.Stop();
-        speaker.Speak(text);
+
+        currentState = ConversationState.LLMSpeaking; // 🔥 ADD THIS
+
+        SafeSpeak(text);
+        waitingForLLMResponse = false;
+
+        // 🔥 NEW: handle procedure trigger HERE instead of TTS
+        if (isFreeConversationMode && freeQuestionCount == questionIndexForProcedure)
+        {
+            questionIndexForProcedure = -1;
+            waitingForProcedureAnswer = true;
+
+            StartCoroutine(AskProcedureAfterDelay());
+        }
     }
 
     // 🎤 Player starts speaking (called externally)
     public void StartPlayerRecording()
     {
-        if (currentState != ConversationState.WaitingForPlayer)
+        if (waitingForLLMResponse)
+        {
+            Debug.Log("Blocked recording: waiting for LLM");
+            return;
+        }
+
+        if (currentState != ConversationState.WaitingForPlayer
+            && currentState != ConversationState.FreeConversation)
             return;
 
-        currentState = ConversationState.PlayerSpeaking;
+        if (speaker.IsSpeaking)
+        {
+            Debug.Log("Blocked recording: NPC is speaking");
+            return;
+        }
 
+        currentState = ConversationState.PlayerSpeaking;
         whisper.StartRecording();
     }
 
@@ -122,10 +191,82 @@ public class ConversationManager : MonoBehaviour
 
     void OnPlayerTranscription(string playerText)
     {
+        var rag = FindObjectOfType<LLMUnitySamples.LLMWithRAG>();
+        if (waitingForLLMResponse)
+        {
+            Debug.Log("Ignoring duplicate transcription");
+            return;
+        }
         Debug.Log("TRANSCRIPTION TRIGGERED");
         Debug.Log("Player said (FINAL): " + playerText);
 
         playerText = playerText.ToLower().Trim();
+
+        if (isFreeConversationMode)
+        {
+            Debug.Log("Free conversation mode → handling input");
+
+            // 🟡 If we're waiting for YES/NO about procedure
+            if (waitingForProcedureAnswer)
+            {
+                if (IsYesKeyword(playerText))
+                {
+                    Debug.Log("User is ready → starting procedure");
+
+                    waitingForProcedureAnswer = false;
+
+                    StartProcedure();
+
+                    currentState = ConversationState.WaitingForPlayer;
+                    return;
+                }
+                else if (IsExitKeyword(playerText)) // your "no"
+                {
+                    Debug.Log("User not ready → continue conversation");
+
+                    waitingForProcedureAnswer = false;
+                    currentState = ConversationState.WaitingForPlayer;
+                    return;
+                }
+                else
+                {
+                    // unclear answer → ask again
+                    SafeSpeak("Please say yes when you're ready, or no if you need more time.");
+                    return;
+                }
+            }
+
+            // 🧠 Count questions
+            freeQuestionCount++;
+
+            Debug.Log("Free question count: " + freeQuestionCount);
+
+            // 🔥 Every 3 questions → ask about procedure
+            if (!procedureStarted && freeQuestionCount % 3 == 0)
+            {
+                Debug.Log("Will ask procedure AFTER LLM response");
+
+                questionIndexForProcedure = freeQuestionCount;
+            }
+
+            // 🧠 Normal LLM flow
+            currentState = ConversationState.Processing;
+
+            
+            if (rag != null)
+            {
+                if (waitingForLLMResponse)
+                {
+                    rag.CancelRequests();
+                }
+                // 🔥 CRITICAL
+                // rag.SubmitDirectLLM(playerText); //not with rag
+                rag.SubmitExternalInput(playerText); //with rag
+                waitingForLLMResponse = true;
+            }
+
+            return;
+        }
 
         // 🔥 EXIT LOOP
         if (inQuestionLoop && IsExitKeyword(playerText))
@@ -136,14 +277,14 @@ public class ConversationManager : MonoBehaviour
             currentState = ConversationState.Processing;
             exitAfterLLM = true;
 
-            var rag = FindObjectOfType<LLMUnitySamples.LLMWithRAG>();
+            
             if (rag != null)
             {
-                rag.SubmitDirectLLM(
+                rag.SubmitExternalInput(
                     "The user said they have no more questions. Reply briefly like: 'Alright, let's continue.'"
                 );
             }
-            
+
             return;
         }
 
@@ -155,15 +296,19 @@ public class ConversationManager : MonoBehaviour
             return;
         }
 
-        // 🧠 NORMAL FLOW
         currentState = ConversationState.Processing;
-        waitingForLLMResponse = true;
 
-        StartCoroutine(WaitForLLMToSpeak());
+        
+        if (rag != null)
+        {
+            // rag.SubmitDirectLLM(playerText); //not with rag
+            rag.SubmitExternalInput(playerText); //with rag
+            waitingForLLMResponse = true;
+        }
 
     }
-   
-    
+
+
 
     // 🔥 THE CORE: handles ALL speech endings
     void OnTTSFinished(TTSSpeaker speaker, Meta.WitAi.TTS.Data.TTSClipData clip)
@@ -181,8 +326,10 @@ public class ConversationManager : MonoBehaviour
                 break;
 
             // ✅ LLM response finished
-            case ConversationState.Processing:
-                waitingForLLMResponse = false;
+            case ConversationState.LLMSpeaking:
+
+
+
 
                 if (exitAfterLLM)
                 {
@@ -195,11 +342,17 @@ public class ConversationManager : MonoBehaviour
                     indexDialogue++;
                     SpeakCurrentDialogue();
                 }
+                else if (isFreeConversationMode)
+                {
+
+
+                    currentState = ConversationState.WaitingForPlayer;
+                }
                 else if (inQuestionLoop)
                 {
                     currentState = ConversationState.WaitingForPlayer;
 
-                    speaker.Speak(followUps[Random.Range(0, followUps.Length)]);
+                    SafeSpeak(followUps[Random.Range(0, followUps.Length)]);
                 }
                 else
                 {
@@ -209,15 +362,24 @@ public class ConversationManager : MonoBehaviour
                 break;
         }
     }
+    IEnumerator AskProcedureAfterDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
 
+        currentState = ConversationState.WaitingForPlayer; // 🔥 IMPORTANT
+        SafeSpeak("Are you ready for the procedure?");
+    }
     IEnumerator SpeakInChunks(string text)
     {
-        string[] parts = text.Split('\n'); // split by lines
+        string[] parts = text.Split('\n');
 
-        foreach (var part in SplitByLength(text))
+        foreach (var line in parts)
         {
-            speaker.Speak(part);
-            yield return new WaitUntil(() => !speaker.IsSpeaking);
+            foreach (var chunk in SplitByLength(line))
+            {
+                SafeSpeak(chunk);
+                yield return new WaitUntil(() => !speaker.IsSpeaking);
+            }
         }
     }
 
@@ -241,13 +403,41 @@ public class ConversationManager : MonoBehaviour
     }
 
     // 🧠 Call this FROM your LLM system when it starts speaking
-    IEnumerator WaitForLLMToSpeak()
+    /*IEnumerator WaitForLLMToSpeak()
     {
         yield return new WaitUntil(() => speaker.IsSpeaking);
 
         currentState = ConversationState.Processing;
         waitingForLLMResponse = true;
 
-        Debug.Log("LLM speech detected");
+        Debug.Log("LLM speech detects");
+
+    }*/
+
+    void StartProcedure()
+    {
+        Debug.Log("🚀 PROCEDURE STARTED");
+
+        freeQuestionCount = 0;
+        procedureStarted = true; // ✅ IMPORTANT
+
+        SafeSpeak("Alright, we’ll begin the procedure now. You can still ask questions at any time.");
+
+        // Example hooks:
+        // StartCoroutine(ProcedureSequence());
+        // Enable components
+        // Trigger animations
+        // Load scene
+
+        /*foreach (var item in itemsAndElephant)
+        {
+            item.SetActive(true);
+        }
+        foreach (var dude in dudesA)
+        {
+            dude.SetActive(true);
+        }
+        */
+
     }
 }

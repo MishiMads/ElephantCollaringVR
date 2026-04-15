@@ -65,8 +65,8 @@ namespace Whisper.Samples
             if (llmOutputText)
                 llmOutputText.text = transcript;
 
-            if (LLMWithRAGScript != null && !string.IsNullOrWhiteSpace(transcript))
-                LLMWithRAGScript.SubmitExternalInput(transcript);
+            //if (LLMWithRAGScript != null && !string.IsNullOrWhiteSpace(transcript))
+             //   LLMWithRAGScript.SubmitExternalInput(transcript);
         }
     }
 }

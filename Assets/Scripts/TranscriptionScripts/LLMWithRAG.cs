@@ -2,6 +2,8 @@ using LLMUnity;
 using Meta.WitAi.TTS.Utilities;
 using Meta.WitAi.TTS.UX;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -24,6 +26,8 @@ namespace LLMUnitySamples
         private Task _initTask;
 
         private bool isGenerating = false;
+
+        private List<string> currentContextChunks = new List<string>();
 
         async void Start()
         {
@@ -63,6 +67,7 @@ namespace LLMUnitySamples
             }
 
             onInputFieldSubmit(message);
+            currentContextChunks.Add("User: " + message);
         }
 
         public async void SubmitDirectLLM(string message)
@@ -158,8 +163,10 @@ namespace LLMUnitySamples
                 return;
             }
 
+            string memory = string.Join("\n", currentContextChunks);
             string prompt =
                 "You are a concise assistant. Answer ONLY using the context below. " +
+                "Conversation history:\n" + memory + "\n\n" +
                 "If the answer is not in the context, say: I don't know.\n\n" +
                 "Context:\n" + context + "\n\n" +
                 "Q: " + message + "\n" +
@@ -189,7 +196,7 @@ namespace LLMUnitySamples
             {
                 Debug.Log("Skipped AIReplyComplete (LLM disabled)");
             }
-            AIReplyComplete();
+            
         }
 
         protected new void AIReplyComplete()
