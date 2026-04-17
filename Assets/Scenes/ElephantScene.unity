@@ -737,6 +737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851879601}
   - component: {fileID: 851879600}
+  - component: {fileID: 851879602}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -824,6 +825,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &851879602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851879599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &860075481
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,6 +4792,63 @@ Transform:
   - {fileID: 6025888661603936748}
   m_Father: {fileID: 6909442505315623449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5552654579313998984
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.269
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.196
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472482834024015689, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221530814528673912, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
+      propertyPath: m_Name
+      value: SyringeObject
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3fad13b3b43cb654bb97ce99a7e74c82, type: 3}
 --- !u!1 &5602215085619422879
 GameObject:
   m_ObjectHideFlags: 0
@@ -6226,3 +6313,4 @@ SceneRoots:
   - {fileID: 572897090}
   - {fileID: 1272274657}
   - {fileID: 543450653398270371}
+  - {fileID: 5552654579313998984}
