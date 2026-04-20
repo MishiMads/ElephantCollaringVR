@@ -8,6 +8,7 @@ TagManager:
   - Target
   - Director
   - Assistant 1
+  - SnapZone
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Overlay UI
   - TapeCollision
-  - 
+  - SnapZone
   - 
   - 
   - 
