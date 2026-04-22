@@ -1,4 +1,4 @@
-Shader "Custom/StoneShader"
+Shader "Custom/StoneShader_VR"
 {
     Properties
     {
@@ -22,9 +22,6 @@ Shader "Custom/StoneShader"
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
 
-        // =========================
-        // FORWARD LIT PASS
-        // =========================
         Pass
         {
             Name "ForwardLit"
@@ -34,6 +31,8 @@ Shader "Custom/StoneShader"
             #pragma vertex vert
             #pragma fragment frag
 
+            // VR + lighting variants
+            #pragma multi_compile_instancing
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
 
@@ -46,6 +45,8 @@ Shader "Custom/StoneShader"
                 float4 positionOS : POSITION;
                 float3 normalOS : NORMAL;
                 float2 uv : TEXCOORD0;
+
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings
@@ -56,6 +57,8 @@ Shader "Custom/StoneShader"
                 float3 normalWS : TEXCOORD2;
                 float3 viewDirWS : TEXCOORD3;
                 float4 shadowCoord : TEXCOORD4;
+
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             TEXTURE2D(_BaseMap);
@@ -76,7 +79,10 @@ Shader "Custom/StoneShader"
 
             Varyings vert(Attributes IN)
             {
+                UNITY_SETUP_INSTANCE_ID(IN);
+
                 Varyings OUT;
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
 
                 VertexPositionInputs posInputs = GetVertexPositionInputs(IN.positionOS.xyz);
                 VertexNormalInputs normInputs = GetVertexNormalInputs(IN.normalOS);
@@ -93,21 +99,23 @@ Shader "Custom/StoneShader"
 
             half4 frag(Varyings IN) : SV_Target
             {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
+
                 float4 tex = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, IN.uv);
                 float3 baseCol = tex.rgb * _BaseColor.rgb;
 
                 float3 smoothNormal = normalize(IN.normalWS);
                 float3 viewDir = normalize(IN.viewDirWS);
 
-                // Face normal (flat shading effect)
+                // Flat face normal (stable version)
                 float3 dpdx = ddx(IN.positionWS);
                 float3 dpdy = ddy(IN.positionWS);
                 float3 faceNormal = normalize(cross(dpdx, dpdy));
 
-                if (dot(faceNormal, smoothNormal) < 0.0)
-                    faceNormal = -faceNormal;
+                // Ensure consistent orientation
+                faceNormal = faceforward(faceNormal, -viewDir, smoothNormal);
 
-                // Lighting + shadows
+                // Lighting
                 Light mainLight = GetMainLight(IN.shadowCoord);
                 float shadow = mainLight.shadowAttenuation;
 
@@ -117,16 +125,17 @@ Shader "Custom/StoneShader"
                 float lightTerm = lerp(_ShadowStrength, _LightStrength, NdotL);
                 lightTerm *= shadow;
 
-                // Cavity shading
+                // Cavity
                 float normalDiff = 1.0 - saturate(dot(smoothNormal, faceNormal));
                 float cavityMask = pow(saturate(normalDiff * _CavityStrength), _CavityPower);
 
-                // Rim lighting
+                // Rim
                 float rim = 1.0 - saturate(dot(faceNormal, viewDir));
                 rim = pow(rim, _RimPower) * _RimStrength;
                 rim = saturate(rim);
 
                 float3 col = baseCol * lightTerm;
+
                 col += _HighlightColor.rgb * (cavityMask * 0.55 + rim * 0.35);
                 col = lerp(col, col * _CavityColor.rgb, cavityMask * 0.35);
 
@@ -136,9 +145,6 @@ Shader "Custom/StoneShader"
             ENDHLSL
         }
 
-        // =========================
-        // SHADOW CASTER PASS
-        // =========================
         Pass
         {
             Name "ShadowCaster"
@@ -150,9 +156,9 @@ Shader "Custom/StoneShader"
             HLSLPROGRAM
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
+            #pragma multi_compile_instancing
 
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
-
             ENDHLSL
         }
     }
