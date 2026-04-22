@@ -6,6 +6,10 @@ public class ToolSnap : MonoBehaviour
     [Header("Identity")]
     public string toolID;
 
+    [Header("Collar Swap Logic")]
+    public GameObject collarToEnable;
+    public GameObject collarToDisable;
+
     private Grabbable _grabbable;
     private Transform _activeTarget;
     private bool _isInZone = false;
@@ -42,6 +46,14 @@ public class ToolSnap : MonoBehaviour
 
     private void SnapToTarget()
     {
+        // COLLAR TAG CHECK: Enable/Disable objects if conditions are met
+        if (gameObject.CompareTag("Collar"))
+        {
+            if (collarToEnable != null) collarToEnable.SetActive(true);
+            if (collarToDisable != null) collarToDisable.SetActive(false);
+            Debug.Log("Collar detected: Swapping visibility of linked objects.");
+        }
+
         // 1. Stop the SDK from fighting us immediately
         if (_grabbable != null) _grabbable.enabled = false;
 
@@ -118,11 +130,5 @@ public class ToolSnap : MonoBehaviour
             _isInZone = false;
             _activeTarget = null;
         }
-    }
-
-    void OnDestroy()
-    {
-        if (_grabbable != null)
-            _grabbable.WhenPointerEventRaised -= HandlePointerEvent;
     }
 }

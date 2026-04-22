@@ -9,6 +9,7 @@ TagManager:
   - Director
   - Assistant 1
   - SnapZone
+  - Collar
   layers:
   - Default
   - TransparentFX
