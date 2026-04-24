@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using Oculus.Interaction;
+using System.Collections;
 
 public class ToolSnap : MonoBehaviour
 {
     [Header("Identity")]
     public string toolID;
 
-    [Header("Collar Swap Logic")]
-    public GameObject collarToEnable;
-    public GameObject collarToDisable;
+    private float tiltDuration = 2.0f;
 
     private Grabbable _grabbable;
     private Transform _activeTarget;
@@ -16,81 +15,97 @@ public class ToolSnap : MonoBehaviour
 
     void Start()
     {
-        // Fix: Look in children since your Grabbable is a child object
         _grabbable = GetComponentInChildren<Grabbable>();
-
-        if (_grabbable != null)
-        {
-            _grabbable.WhenPointerEventRaised += HandlePointerEvent;
-            Debug.Log($"{gameObject.name} successfully linked to Grabbable on child.");
-        }
-        else
-        {
-            Debug.LogError($"{gameObject.name} could not find a Grabbable component in its children!");
-        }
+        if (_grabbable != null) _grabbable.WhenPointerEventRaised += HandlePointerEvent;
     }
 
     private void HandlePointerEvent(PointerEvent evt)
     {
-        // LOG EVERY EVENT TO SEE WHAT THE HAND IS DOING
-        Debug.Log($"Event Detected: {evt.Type} | InZone: {_isInZone}");
-
-        if (evt.Type == PointerEventType.Unselect)
-        {
-            if (_isInZone && _activeTarget != null)
-            {
-                SnapToTarget();
-            }
-        }
+        if (evt.Type == PointerEventType.Unselect && _isInZone && _activeTarget != null)
+            SnapToTarget();
     }
 
     private void SnapToTarget()
     {
-        // COLLAR TAG CHECK: Enable/Disable objects if conditions are met
-        if (gameObject.CompareTag("Collar"))
-        {
-            if (collarToEnable != null) collarToEnable.SetActive(true);
-            if (collarToDisable != null) collarToDisable.SetActive(false);
-            Debug.Log("Collar detected: Swapping visibility of linked objects.");
-        }
+        if (TryGetComponent<CollarSwap>(out var swapScript)) swapScript.MakeSwap();
 
-        // 1. Stop the SDK from fighting us immediately
         if (_grabbable != null) _grabbable.enabled = false;
 
-        // 2. Disable all Interactables to force the hand to release
-        IInteractable[] interactables = GetComponentsInChildren<IInteractable>();
-        foreach (var interactable in interactables)
-        {
-            if (interactable is MonoBehaviour mono) mono.enabled = false;
-        }
-
-        // 3. Complete Physics Shutdown
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            rb.interpolation = RigidbodyInterpolation.None; // Stops the "jitter" smoothing
-            rb.detectCollisions = false; // Prevents the tool from bumping into the elephant
+            rb.detectCollisions = false;
         }
 
-        // 4. Parenting and Placement
         transform.SetParent(_activeTarget);
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
 
-        Debug.Log($"LOCKDOWN: {gameObject.name} snapped. If it still jitters, check if the Socket is moving.");
+        // Check if this is the bucket (has Wobble)
+        Wobble water = GetComponentInChildren<Wobble>();
+
+        if (water != null)
+        {
+            // BUCKET LOGIC: Start at 90 and begin the slow tilt back to 0
+            water.StartAutoPour();
+            StartCoroutine(AnimateBucketTilt(water));
+        }
+        else
+        {
+            // STETHOSCOPE/OTHER LOGIC: Snap to perfectly upright instantly
+            transform.localRotation = Quaternion.identity;
+        }
+
+        Debug.Log($"LOCKDOWN: {gameObject.name} successfully snapped.");
     }
+
+    // Pass the water script in so we don't have to find it again
+    IEnumerator AnimateBucketTilt(Wobble water)
+    {
+        float elapsed = 0;
+        // Use the variable from the header instead of a hard-coded number
+        float slowTiltDuration = tiltDuration;
+
+        Quaternion startRot = Quaternion.Euler(0, 0, 90);
+        Quaternion endRot = Quaternion.identity;
+
+        transform.localRotation = startRot;
+
+        while (elapsed < slowTiltDuration)
+        {
+            elapsed += Time.deltaTime;
+            transform.localRotation = Quaternion.Slerp(startRot, endRot, elapsed / slowTiltDuration);
+            yield return null;
+        }
+
+        transform.localRotation = endRot;
+    }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("SnapZone"))
         {
-            var socketID = other.GetComponent<ToolSocket>()?.socketID;
-            Debug.Log($"Entered Zone: {other.name}. SocketID: {socketID}");
+            var socket = other.GetComponent<ToolSocket>();
+            if (socket != null && socket.socketID == toolID)
+            {
+                _isInZone = true;
+                _activeTarget = other.transform;
+                Debug.Log($"In Zone: {other.name}");
+            }
+        }
+    }
 
-            if (socketID == toolID)
+    private void OnTriggerStay(Collider other)
+    {
+        // Debug every trigger hit to see what is around the tool
+        Debug.Log($"{gameObject.name} is touching trigger: {other.name} (Tag: {other.tag})");
+
+        if (other.CompareTag("SnapZone"))
+        {
+            var socket = other.GetComponent<ToolSocket>();
+            if (socket != null && socket.socketID == toolID)
             {
                 _isInZone = true;
                 _activeTarget = other.transform;
@@ -98,37 +113,30 @@ public class ToolSnap : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log($"E Pressed. In Zone: {_isInZone} | Target: {(_activeTarget != null ? _activeTarget.name : "null")}");
-
-            if (_isInZone && _activeTarget != null)
-            {
-                SnapToTarget();
-            }
-            else
-            {
-                Debug.LogWarning("Snap failed: Not in zone or no target.");
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($"PHYSICS HIT: I bumped into {collision.gameObject.name}");
-    }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("SnapZone"))
         {
-            // If we are already parented to the socket, we didn't "exit," we joined it.
+            // If already parented, we didn't exit, we snapped
             if (transform.parent == other.transform) return;
 
             _isInZone = false;
             _activeTarget = null;
         }
+    }
+
+    void Update()
+    {
+        // Debug Snap with keyboard
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (_isInZone && _activeTarget != null) SnapToTarget();
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (_grabbable != null)
+            _grabbable.WhenPointerEventRaised -= HandlePointerEvent;
     }
 }

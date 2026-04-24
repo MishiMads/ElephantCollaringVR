@@ -1,107 +1,88 @@
 using UnityEngine;
+using System.Collections;
 
 public class Wobble : MonoBehaviour
 {
-    private Quaternion initialRotation;
-
     Renderer rend;
-    Vector3 lastPos;
-    Vector3 lastRot;
-    Vector3 velocity;
-    Vector3 angularVelocity;
-
-    public float MaxWobble = 0.03f;
-    public float WobbleSpeed = 1f;
-    public float Recovery = 1f;
-    float wobbleAmountX, wobbleAmountZ;
-    float wobbleAmountToAddX, wobbleAmountToAddZ;
-    float time = 0.5f;
+    Material mat;
 
     [Header("Pouring Settings")]
     public ParticleSystem pourParticles;
-    public GameObject waterPoolPrefab; // Prefab of a flat blue cylinder or plane
-    public float pourThreshold = 45f;
-    public float emptySpeed = 0.2f;    // How fast the bucket empties
-
-    float currentFill = 1f; // Starts full
-    GameObject currentPool;
+    public float emptySpeed = 0.05f;
+    private float currentFill = 1f;
+    private bool _isMonitoring = false;
+    private bool _isPouring = false;
+    private bool _hasFinishedPouring = false;
 
     void Start()
     {
         rend = GetComponent<Renderer>();
-        currentFill = rend.material.GetFloat("_Fill");
-
-        rend = GetComponent<Renderer>();
-
-        // 2. Capture the -90 rotation as the "resting" state
-        initialRotation = transform.rotation;
-
-        // Safety check for the shader property name
-        if (rend.material.HasProperty("_Fill"))
+        if (rend != null)
         {
-            currentFill = rend.material.GetFloat("_Fill");
+            mat = rend.material;
+            if (mat.HasProperty("_Fill"))
+                currentFill = mat.GetFloat("_Fill");
+        }
+    }
+
+    public void StartAutoPour()
+    {
+        if (!_hasFinishedPouring)
+        {
+            _isMonitoring = true;
         }
     }
 
     void Update()
     {
-        time += Time.deltaTime;
+        if (_hasFinishedPouring || (!_isMonitoring && !_isPouring)) return;
 
-        // Wobble Logic
-        wobbleAmountToAddX = Mathf.Lerp(wobbleAmountToAddX, 0, Time.deltaTime * Recovery);
-        wobbleAmountToAddZ = Mathf.Lerp(wobbleAmountToAddZ, 0, Time.deltaTime * Recovery);
-        float pulse = 2 * Mathf.PI * WobbleSpeed;
-        wobbleAmountX = wobbleAmountToAddX * Mathf.Sin(pulse * time);
-        wobbleAmountZ = wobbleAmountToAddZ * Mathf.Sin(pulse * time);
+        float currentZ = transform.parent.localEulerAngles.z;
+        if (currentZ > 180) currentZ -= 360;
 
-        rend.material.SetFloat("_WobbleX", wobbleAmountX);
-        rend.material.SetFloat("_WobbleZ", wobbleAmountZ);
-
-        velocity = (lastPos - transform.position) / Time.deltaTime;
-        angularVelocity = transform.rotation.eulerAngles - lastRot;
-        wobbleAmountToAddX += Mathf.Clamp((velocity.x + (angularVelocity.z * 0.2f)) * MaxWobble, -MaxWobble, MaxWobble);
-        wobbleAmountToAddZ += Mathf.Clamp((velocity.z + (angularVelocity.x * 0.2f)) * MaxWobble, -MaxWobble, MaxWobble);
-
-        lastPos = transform.position;
-        lastRot = transform.rotation.eulerAngles;
-
-        // Pouring and Emptying Logic
-        // Calculate tilt relative to that -90 starting point
-        float tilt = Quaternion.Angle(transform.rotation, initialRotation);
-
-        // Now 'tilt' will be 0 when the bucket is at -90, 
-        // and will increase as you tip it over.
-        if (tilt > pourThreshold && currentFill > 0)
+        if (Mathf.Abs(currentZ) >= 56.25f || _isPouring)
         {
-            if (!pourParticles.isPlaying) pourParticles.Play();
+            if (currentFill > 0)
+            {
+                _isPouring = true;
 
-            currentFill -= emptySpeed * Time.deltaTime;
-            rend.material.SetFloat("_Fill", currentFill);
+                if (!pourParticles.isPlaying) pourParticles.Play();
 
-            HandleWaterPool();
+                currentFill -= emptySpeed * Time.deltaTime;
+                mat.SetFloat("_Fill", currentFill);
+            }
+            else
+            {
+                currentFill = 0;
+                mat.SetFloat("_Fill", 0);
+
+                _isPouring = false;
+                _isMonitoring = false;
+                _hasFinishedPouring = true;
+
+                if (pourParticles.isPlaying) pourParticles.Stop();
+
+                // Start the routine to disable the whole bucket
+                StartCoroutine(DisableBucketRoutine());
+            }
+        }
+    }
+
+    IEnumerator DisableBucketRoutine()
+    {
+        // Optional: Wait a tiny bit so the end of the particle effect 
+        // isn't cut off abruptly when the object vanishes
+        yield return new WaitForSeconds(0.2f);
+
+        // Disables the "Water bucket" parent object
+        if (transform.parent != null)
+        {
+            transform.parent.gameObject.SetActive(false);
         }
         else
         {
-            if (pourParticles.isPlaying) pourParticles.Stop();
-        }
-
-
-    }
-
-    void HandleWaterPool()
-    {
-        RaycastHit hit;
-        // Raycast straight down in World Space
-        if (Physics.Raycast(pourParticles.transform.position, Vector3.down, out hit))
-        {
-            if (currentPool == null)
-            {
-                // Spawn the pool flat on the ground (Quaternion.identity)
-                currentPool = Instantiate(waterPoolPrefab, hit.point + new Vector3(0, 0.01f, 0), Quaternion.identity);
-            }
-
-            // Grow X and Z, keep Y (height) at 0
-            currentPool.transform.localScale += new Vector3(0.5f, 0, 0.5f) * Time.deltaTime;
+            // Fallback if it has no parent
+            gameObject.SetActive(false);
         }
     }
 }
