@@ -25,12 +25,12 @@ public class BrieferCode : MonoBehaviour
 
     public void brieferSpeak()
     {
-        animatorBrief.SetBool("isSpeaking", true);
+        animatorBrief.SetBool("isTalking", true);
     }
 
     public void brieferNoSpeak()
     {
-        animatorBrief.SetBool("isSpeaking", false);
+        animatorBrief.SetBool("isTalking", false);
     }
 
     void OnAnimatorIK(int layerIndex)
