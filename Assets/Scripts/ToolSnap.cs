@@ -27,6 +27,26 @@ public class ToolSnap : MonoBehaviour
 
     private void SnapToTarget()
     {
+        // Check for Spray Can
+        if (TryGetComponent<SprayCanLogic>(out var spray))
+        {
+            spray.ApplySpray();
+            return;
+        }
+
+        // Check for Medkit
+        if (TryGetComponent<MedkitTextureSwap>(out var medkit))
+        {
+            medkit.ApplyHealing();
+            return;
+        }
+
+        // Prevent Syringe from snapping so user keeps holding it
+        if (TryGetComponent<SyringeAnimation>(out var syringe))
+        {
+            return;
+        }
+
         if (TryGetComponent<CollarSwap>(out var swapScript)) swapScript.MakeSwap();
 
         if (_grabbable != null) _grabbable.enabled = false;
@@ -55,8 +75,6 @@ public class ToolSnap : MonoBehaviour
             // STETHOSCOPE/OTHER LOGIC: Snap to perfectly upright instantly
             transform.localRotation = Quaternion.identity;
         }
-
-        Debug.Log($"LOCKDOWN: {gameObject.name} successfully snapped.");
     }
 
     // Pass the water script in so we don't have to find it again
@@ -92,6 +110,7 @@ public class ToolSnap : MonoBehaviour
             {
                 _isInZone = true;
                 _activeTarget = other.transform;
+
                 Debug.Log($"In Zone: {other.name}");
             }
         }
@@ -109,6 +128,18 @@ public class ToolSnap : MonoBehaviour
             {
                 _isInZone = true;
                 _activeTarget = other.transform;
+            }
+        }
+
+        // Check if the thing we touched is the correct socket
+        if (other.name == "BloddrawSocket" || other.CompareTag("SnapZone"))
+        {
+            // Look for the script on THIS object (the syringe), not 'other'
+            SyringeAnimation ani = GetComponent<SyringeAnimation>();
+
+            if (ani != null)
+            {
+                ani.PlayBloodAnimation();
             }
         }
     }

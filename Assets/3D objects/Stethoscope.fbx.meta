@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-guid: 098f1c7f1ab5e254cb2187a9a1930af6
-=======
-guid: 81f473ef397a3d743b31aa0dc370277c
->>>>>>> Stashed changes
+guid: 499ae0a4ebcca3d44a2ccdb2e197da74
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -34,17 +30,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-<<<<<<< Updated upstream
-    isReadable: 1
-  meshes:
-    lODScreenPercentages: []
-    globalScale: 0.05
-=======
     isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 0.1
->>>>>>> Stashed changes
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -52,13 +41,8 @@ ModelImporter:
     importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
-<<<<<<< Updated upstream
     importCameras: 0
     importLights: 0
-=======
-    importCameras: 1
-    importLights: 1
->>>>>>> Stashed changes
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
@@ -107,11 +91,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-<<<<<<< Updated upstream
-    globalScale: 0.05
-=======
-    globalScale: 0.1
->>>>>>> Stashed changes
+    globalScale: 0.001
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
