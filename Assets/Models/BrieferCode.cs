@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,13 +24,42 @@ public class BrieferCode : MonoBehaviour
             cameraTarget = Camera.main.transform;
     }
 
+    Coroutine talkingRoutine;
+
     public void brieferSpeak()
     {
+        if (talkingRoutine != null)
+            StopCoroutine(talkingRoutine);
+
+        talkingRoutine = StartCoroutine(TalkingLoop());
+    }
+
+    IEnumerator TalkingLoop()
+    {
         animatorBrief.SetBool("isTalking", true);
+
+        while (true)
+        {
+            int current = animatorBrief.GetInteger("talkVariant");
+            int next;
+
+            do
+            {
+                next = Random.Range(0, 4);
+            }
+            while (next == current);
+
+            animatorBrief.SetInteger("talkVariant", next);
+
+            yield return new WaitForSeconds(Random.Range(3f, 6f));
+        }
     }
 
     public void brieferNoSpeak()
     {
+        if (talkingRoutine != null)
+            StopCoroutine(talkingRoutine);
+
         animatorBrief.SetBool("isTalking", false);
     }
 

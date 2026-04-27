@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BrieferLogic : MonoBehaviour
@@ -19,6 +20,8 @@ public class BrieferLogic : MonoBehaviour
     private Quaternion headStartLocalRot;
     private Quaternion spineStartLocalRot;
 
+    Coroutine talkingRoutine;
+
     void Start()
     {
         if (animatorBrief == null)
@@ -33,7 +36,21 @@ public class BrieferLogic : MonoBehaviour
 
     public void brieferSpeak()
     {
+        if (talkingRoutine != null)
+            StopCoroutine(talkingRoutine);
+
+        talkingRoutine = StartCoroutine(TalkingLoop());
+    }
+
+    IEnumerator TalkingLoop()
+    {
         animatorBrief.SetBool("isTalking", true);
+
+        while (true)
+        {
+            animatorBrief.SetInteger("talkVariant", Random.Range(0, 4));
+            yield return new WaitForSeconds(2f);
+        }
     }
 
     public void brieferNoSpeak()

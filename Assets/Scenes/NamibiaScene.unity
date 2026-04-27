@@ -9877,7 +9877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &783319303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18264,7 +18264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6055201706805903424, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1572384.1
+      value: -1670045.1
       objectReference: {fileID: 0}
     - target: {fileID: 6125506179399219847, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: speaker
@@ -18296,7 +18296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events._onPlaybackStart.m_PersistentCalls.m_Calls.Array.size
@@ -18308,7 +18308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnAudioClipPlaybackStart.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -18325,7 +18325,7 @@ PrefabInstance:
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1640977228}
+      objectReference: {fileID: 1640977223}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -18337,11 +18337,11 @@ PrefabInstance:
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events._onPlaybackStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1640977228}
+      objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnFinishedSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1640977228}
+      objectReference: {fileID: 1640977223}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -18360,7 +18360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events._onPlaybackStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: brieferSpeak
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnFinishedSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -18388,7 +18388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BrieferLogic, Assembly-CSharp
+      value: BrieferCode, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnStartSpeaking.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -18396,11 +18396,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events._onPlaybackStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BrieferLogic, Assembly-CSharp
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnFinishedSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BrieferLogic, Assembly-CSharp
+      value: BrieferCode, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnAudioClipPlaybackStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -18412,7 +18412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events._onPlaybackStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _events.OnFinishedSpeaking.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -18508,7 +18508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8433043260923303174, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 58741.367
+      value: 63733.727
       objectReference: {fileID: 0}
     - target: {fileID: 8747892450160276225, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_IsActive
@@ -23940,7 +23940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1726176618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24750,7 +24750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1785358367
 MonoBehaviour:
   m_ObjectHideFlags: 0
