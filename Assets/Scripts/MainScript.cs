@@ -7,8 +7,8 @@ public class MainScript : MonoBehaviour
 {
     [Header("Elephant State")]
     public Renderer elephantRenderer;
-    private bool _isSprayed = false;
-    private bool _isHealed = false;
+    private bool isSprayed = false;
+    private bool isHealed = false;
 
     [Header("Texture Variants")]
     public Texture2D texBaseInjury;      // Texture 1
@@ -46,14 +46,14 @@ public class MainScript : MonoBehaviour
     // Called by SprayCanAction
     public void SetSprayed()
     {
-        _isSprayed = true;
+        isSprayed = true;
         UpdateVisuals();
     }
 
     // Called by MedkitTextureSwap
     public void SetHealed()
     {
-        _isHealed = true;
+        isHealed = true;
         UpdateVisuals();
     }
 
@@ -61,10 +61,10 @@ public class MainScript : MonoBehaviour
     {
         Texture2D selectedTex = texBaseInjury;
 
-        if (!_isHealed && !_isSprayed) selectedTex = texBaseInjury;
-        else if (!_isHealed && _isSprayed) selectedTex = texInjuryAndSpray;
-        else if (_isHealed && _isSprayed) selectedTex = texHealedAndSpray;
-        else if (_isHealed && !_isSprayed) selectedTex = texHealedNoSpray;
+        if (!isHealed && !isSprayed) selectedTex = texBaseInjury;
+        else if (!isHealed && isSprayed) selectedTex = texInjuryAndSpray;
+        else if (isHealed && isSprayed) selectedTex = texHealedAndSpray;
+        else if (isHealed && !isSprayed) selectedTex = texHealedNoSpray;
 
         if (elephantRenderer != null)
         {

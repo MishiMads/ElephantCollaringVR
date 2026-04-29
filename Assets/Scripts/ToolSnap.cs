@@ -9,19 +9,19 @@ public class ToolSnap : MonoBehaviour
 
     private float tiltDuration = 2.0f;
 
-    private Grabbable _grabbable;
-    private Transform _activeTarget;
-    private bool _isInZone = false;
+    private Grabbable grabbable;
+    private Transform activeTarget;
+    private bool isInZone = false;
 
     void Start()
     {
-        _grabbable = GetComponentInChildren<Grabbable>();
-        if (_grabbable != null) _grabbable.WhenPointerEventRaised += HandlePointerEvent;
+        grabbable = GetComponentInChildren<Grabbable>();
+        if (grabbable != null) grabbable.WhenPointerEventRaised += HandlePointerEvent;
     }
 
     private void HandlePointerEvent(PointerEvent evt)
     {
-        if (evt.Type == PointerEventType.Unselect && _isInZone && _activeTarget != null)
+        if (evt.Type == PointerEventType.Unselect && isInZone && activeTarget != null)
             SnapToTarget();
     }
 
@@ -49,7 +49,7 @@ public class ToolSnap : MonoBehaviour
 
         if (TryGetComponent<CollarSwap>(out var swapScript)) swapScript.MakeSwap();
 
-        if (_grabbable != null) _grabbable.enabled = false;
+        if (grabbable != null) grabbable.enabled = false;
 
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
@@ -58,7 +58,7 @@ public class ToolSnap : MonoBehaviour
             rb.detectCollisions = false;
         }
 
-        transform.SetParent(_activeTarget);
+        transform.SetParent(activeTarget);
         transform.localPosition = Vector3.zero;
 
         // Check if this is the bucket (has Wobble)
@@ -108,8 +108,8 @@ public class ToolSnap : MonoBehaviour
             var socket = other.GetComponent<ToolSocket>();
             if (socket != null && socket.socketID == toolID)
             {
-                _isInZone = true;
-                _activeTarget = other.transform;
+                isInZone = true;
+                activeTarget = other.transform;
 
                 Debug.Log($"In Zone: {other.name}");
             }
@@ -126,8 +126,8 @@ public class ToolSnap : MonoBehaviour
             var socket = other.GetComponent<ToolSocket>();
             if (socket != null && socket.socketID == toolID)
             {
-                _isInZone = true;
-                _activeTarget = other.transform;
+                isInZone = true;
+                activeTarget = other.transform;
             }
         }
 
@@ -151,8 +151,8 @@ public class ToolSnap : MonoBehaviour
             // If already parented, we didn't exit, we snapped
             if (transform.parent == other.transform) return;
 
-            _isInZone = false;
-            _activeTarget = null;
+            isInZone = false;
+            activeTarget = null;
         }
     }
 
@@ -161,13 +161,13 @@ public class ToolSnap : MonoBehaviour
         // Debug Snap with keyboard
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (_isInZone && _activeTarget != null) SnapToTarget();
+            if (isInZone && activeTarget != null) SnapToTarget();
         }
     }
 
     void OnDestroy()
     {
-        if (_grabbable != null)
-            _grabbable.WhenPointerEventRaised -= HandlePointerEvent;
+        if (grabbable != null)
+            grabbable.WhenPointerEventRaised -= HandlePointerEvent;
     }
 }

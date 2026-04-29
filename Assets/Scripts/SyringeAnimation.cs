@@ -10,20 +10,10 @@ public class SyringeAnimation : MonoBehaviour
 
     public void PlayBloodAnimation()
     {
-        // Use the Bool from your screenshot
         if (syringeAnimator != null && !hasPlayed)
         {
             syringeAnimator.SetBool(boolParameterName, true);
             hasPlayed = true;
         }
-    }
-
-    public void ResetSyringe()
-    {
-        if (syringeAnimator != null)
-        {
-            syringeAnimator.SetBool(boolParameterName, false);
-        }
-        hasPlayed = false;
     }
 }
