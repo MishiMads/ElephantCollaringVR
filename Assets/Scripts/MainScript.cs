@@ -1,29 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Oculus.Interaction;
 
 public class MainScript : MonoBehaviour
 {
-    [Header("Elephant State")]
-    public Renderer elephantRenderer;
-    private bool isSprayed = false;
-    private bool isHealed = false;
-
+    [Header("Sequence Status")]
+    public bool stickInserted = false;    // Task 1: Must be first
+    public bool collarOn = false;         // Task 2: Must be second
+    public bool isSprayed = false;
+    public bool isHealed = false;
+    public bool bloodDrawn = false;
+    public bool heartChecked = false;
+    public bool footMeasured = false;     
+    public bool elephantCooled = false;   
+    
     [Header("Texture Variants")]
-    public Texture2D texBaseInjury;      // Texture 1
-    public Texture2D texInjuryAndSpray;  // Texture 2
-    public Texture2D texHealedAndSpray;  // Texture 3
-    public Texture2D texHealedNoSpray;   // Texture 4
+    public Renderer elephantRenderer;
 
-    [Header("Snap Logic")]
-    public List<SnapInteractable> managedSnapPoints;
+    public Texture2D texBaseInjury;
+    public Texture2D texInjuryAndSpray;
+    public Texture2D texHealedAndSpray;
+    public Texture2D texHealedNoSpray;
 
-    [Header("Elephant Logic")]
-    public ElephantMove elephantScript; // Reference to the actual script
-
-    [Header("NPC Logic")]
-    public List<NPCBehaviour> npcScripts; // List of NPC scripts
+    [Header("Trigger Zones")]
+    public List<GameObject> triggerZones;
 
     public static MainScript Instance;
 
@@ -32,37 +32,79 @@ public class MainScript : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    // --- STEP 1: THE STICK (MANDATORY FIRST) ---
+    public void SetStickInserted()
     {
-        // ---------------------------------------------------------
-        // INITIATE ELEPHANT SCRIPT
-        // ---------------------------------------------------------
-        if (elephantScript != null)
+        stickInserted = true;
+        Debug.Log("Step 1 Complete: Airway secured.");
+    }
+
+    // --- STEP 2: THE COLLAR (MANDATORY AFTER STICK) ---
+    public void SetCollarSwapped()
+    {
+        if (stickInserted)
         {
-            elephantScript.InitiateMovement();
+            collarOn = true;
+            Debug.Log("Step 2 Complete: Collar on.");
+        }
+        else
+        {
+            Debug.LogWarning("Sequence Error: Secure airway with stick first.");
         }
     }
 
-    // Called by SprayCanAction
+    // --- OPTIONAL TASKS (ONLY ACCESSIBLE AFTER COLLAR) ---
     public void SetSprayed()
     {
-        isSprayed = true;
-        UpdateVisuals();
+        if (collarOn) { isSprayed = true; UpdateVisuals(); }
     }
 
-    // Called by MedkitTextureSwap
     public void SetHealed()
     {
-        isHealed = true;
-        UpdateVisuals();
+        if (collarOn) { isHealed = true; UpdateVisuals(); }
+    }
+
+    public void SetBloodDrawn()
+    {
+        if (collarOn) bloodDrawn = true;
+    }
+
+    public void SetHeartChecked()
+    {
+        if (collarOn) heartChecked = true;
+    }
+
+    public void SetFootMeasured()
+    {
+        if (collarOn) footMeasured = true;
+    }
+
+    public void SetElephantCooled()
+    {
+        if (collarOn) elephantCooled = true;
+    }
+
+    // --- FINAL STEP: REVERSAL DRUG (MANDATORY END) ---
+    public void AdministerReversal()
+    {
+        // Validates all tasks before allowing the procedure to end
+        if (stickInserted && collarOn && isSprayed && isHealed &&
+            bloodDrawn && heartChecked && footMeasured && elephantCooled)
+        {
+            Debug.Log("Procedure Successful. Reversal drug administered.");
+            // Trigger waking logic here
+        }
+        else
+        {
+            Debug.Log("Procedure Incomplete. Cannot wake elephant yet.");
+        }
     }
 
     private void UpdateVisuals()
     {
         Texture2D selectedTex = texBaseInjury;
 
-        if (!isHealed && !isSprayed) selectedTex = texBaseInjury;
-        else if (!isHealed && isSprayed) selectedTex = texInjuryAndSpray;
+        if (!isHealed && isSprayed) selectedTex = texInjuryAndSpray;
         else if (isHealed && isSprayed) selectedTex = texHealedAndSpray;
         else if (isHealed && !isSprayed) selectedTex = texHealedNoSpray;
 
@@ -70,51 +112,6 @@ public class MainScript : MonoBehaviour
         {
             string prop = elephantRenderer.material.HasProperty("_BaseMap") ? "_BaseMap" : "_MainTex";
             elephantRenderer.material.SetTexture(prop, selectedTex);
-        }
-    }
-
-    // ---------------------------------------------------------
-    // SNAP EVENT LOGIC
-    // ---------------------------------------------------------
-    private void OnEnable()
-    {
-        foreach (var snapPoint in managedSnapPoints)
-        {
-            if (snapPoint != null)
-                snapPoint.WhenStateChanged += (args) => HandleStateChanged(snapPoint, args);
-        }
-    }
-
-    private void OnDisable()
-    {
-        foreach (var snapPoint in managedSnapPoints)
-        {
-            if (snapPoint != null)
-                snapPoint.WhenStateChanged -= (args) => HandleStateChanged(snapPoint, args);
-        }
-    }
-
-    private void HandleStateChanged(SnapInteractable snapPoint, InteractableStateChangeArgs args)
-    {
-        if (args.NewState == InteractableState.Select)
-        {
-            Debug.Log($"<color=green>Snapped:</color> {snapPoint.gameObject.name}");
-        }
-    }
-
-    // ---------------------------------------------------------
-    // NPC INITIATION LOGIC
-    // This is called by the ElephantMove script when it arrives
-    // ---------------------------------------------------------
-    public void InitiateNPCs()
-    {
-        Debug.Log("MainScript: Elephant arrived. Starting NPCs...");
-        foreach (var npc in npcScripts)
-        {
-            if (npc != null)
-            {
-                npc.StartNPCLogic();
-            }
         }
     }
 }
