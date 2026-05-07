@@ -18168,6 +18168,7 @@ MonoBehaviour:
   - {fileID: 1169676378}
   - {fileID: 1125292380}
   - {fileID: 1320965314}
+  conversationManager: {fileID: 0}
 --- !u!4 &1310248884
 Transform:
   m_ObjectHideFlags: 0
@@ -19116,7 +19117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6055201706805903424, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5242518
+      value: -5245184.5
       objectReference: {fileID: 0}
     - target: {fileID: 6125506179399219847, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: sourceText
@@ -19272,7 +19273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8433043260923303174, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 60176.465
+      value: 60667.56
       objectReference: {fileID: 0}
     - target: {fileID: 9182358288773187291, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchorMax.x
