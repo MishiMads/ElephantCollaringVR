@@ -425,7 +425,11 @@ public class ConversationManager : MonoBehaviour
         SafeSpeak("Alright, we’ll begin the procedure now. You can still ask questions at any time.");
 
         procedureObjects.SetActive(true);
-        eyelidController.TriggerBlink();
+
+        yield return StartCoroutine(eyelidController.PlayProcedureTransition(() =>
+        {
+            procedureObjects.SetActive(true);
+        }));
 
         // Example hooks:
         // StartCoroutine(ProcedureSequence());

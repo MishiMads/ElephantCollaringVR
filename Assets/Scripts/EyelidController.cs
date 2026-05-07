@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class EyelidController : MonoBehaviour
@@ -8,72 +9,98 @@ public class EyelidController : MonoBehaviour
     public RectTransform bottomEyelid;
 
     [Header("Timing Settings")]
-    public float initialDelay = 1.0f;      // Wait before starting the close
-    public float closeDuration = 0.5f;     // Speed of closing
-    public float stayClosedDuration = 0.5f; // Pause while closed
-    public float openDuration = 2.0f;      // Speed of opening (usually slower for "waking up")
+    public float closeDuration = 0.5f;
+    public float stayClosedDuration = 0.5f;
+    public float openDuration = 2.0f;
 
-    [Header("Coordinates")]
-    private readonly Vector2 topOpen = new Vector2(0f, 820f);
-    private readonly Vector2 topClosed = new Vector2(0f, 270f);
-    private readonly Vector2 bottomOpen = new Vector2(0f, -812f);
-    private readonly Vector2 bottomClosed = new Vector2(0f, -270f);
+    [Header("Audio")]
+    public AudioSource helicopterSound;
 
-    public AudioClip helicopterSound;
+    [Header("Positions")]
+    private readonly Vector2 topOpen = new Vector2(0f, 770f);
+    private readonly Vector2 topClosed = new Vector2(0f, 240f);
 
-    void Start()
+    private readonly Vector2 bottomOpen = new Vector2(0f, -770f);
+    private readonly Vector2 bottomClosed = new Vector2(0f, -240f);
+
+    private bool isRunning = false;
+
+    void Awake()
     {
-        
+        SetOpen();
     }
 
-    public void TriggerBlink()
+    public void SetOpen()
     {
-        if (topEyelid != null && bottomEyelid != null)
-        {
-            // Start in the OPEN position
+        if (topEyelid != null)
             topEyelid.anchoredPosition = topOpen;
-            bottomEyelid.anchoredPosition = bottomOpen;
 
-            StartCoroutine(FullBlinkSequence());
-            if (helicopterSound != null)
-            {
-                AudioSource.PlayClipAtPoint(helicopterSound, Camera.main.transform.position);
-            }
-        }
+        if (bottomEyelid != null)
+            bottomEyelid.anchoredPosition = bottomOpen;
     }
 
-    IEnumerator FullBlinkSequence()
+    public IEnumerator PlayProcedureTransition(Action onFullyClosed = null)
     {
-        // 1. Initial wait while eyes are open
-        yield return new WaitForSeconds(initialDelay);
+        if (isRunning)
+            yield break;
 
-        // 2. CLOSE (using closeDuration)
-        yield return StartCoroutine(AnimateLids(topOpen, topClosed, bottomOpen, bottomClosed, closeDuration));
+        isRunning = true;
 
-        // 3. STAY CLOSED
+        // Close eyelids
+        yield return StartCoroutine(AnimateLids(
+            topOpen,
+            topClosed,
+            bottomOpen,
+            bottomClosed,
+            closeDuration
+        ));
+
+        // Run procedure action while eyes are fully closed
+        onFullyClosed?.Invoke();
+
+        // Play helicopter sound while closed
+        if (helicopterSound != null)
+            helicopterSound.Play();
+
+        // Stay closed briefly
         yield return new WaitForSeconds(stayClosedDuration);
 
-        // 4. OPEN (using openDuration)
-        yield return StartCoroutine(AnimateLids(topClosed, topOpen, bottomClosed, bottomOpen, openDuration));
+        // Open eyelids slowly
+        yield return StartCoroutine(AnimateLids(
+            topClosed,
+            topOpen,
+            bottomClosed,
+            bottomOpen,
+            openDuration
+        ));
+
+        isRunning = false;
     }
 
-    // This helper now takes a 'duration' parameter so each movement can have a unique speed
-    IEnumerator AnimateLids(Vector2 tStart, Vector2 tEnd, Vector2 bStart, Vector2 bEnd, float duration)
+    IEnumerator AnimateLids(
+        Vector2 topStart,
+        Vector2 topEnd,
+        Vector2 bottomStart,
+        Vector2 bottomEnd,
+        float duration
+    )
     {
-        float elapsed = 0;
+        float elapsed = 0f;
+
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            // Using SmoothStep for a polished "organic" feel
-            float percent = Mathf.SmoothStep(0, 1, elapsed / duration);
 
-            topEyelid.anchoredPosition = Vector2.Lerp(tStart, tEnd, percent);
-            bottomEyelid.anchoredPosition = Vector2.Lerp(bStart, bEnd, percent);
+            float t = Mathf.Clamp01(elapsed / duration);
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            topEyelid.anchoredPosition = Vector2.Lerp(topStart, topEnd, t);
+            bottomEyelid.anchoredPosition = Vector2.Lerp(bottomStart, bottomEnd, t);
 
             yield return null;
         }
 
-        topEyelid.anchoredPosition = tEnd;
-        bottomEyelid.anchoredPosition = bEnd;
+        topEyelid.anchoredPosition = topEnd;
+        bottomEyelid.anchoredPosition = bottomEnd;
     }
 }
