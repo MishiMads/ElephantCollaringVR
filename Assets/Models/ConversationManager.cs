@@ -9,6 +9,7 @@ public class ConversationManager : MonoBehaviour
 {
     public TTSSpeaker speaker;
     public WhisperTranscriptionService whisper;
+    public EyelidController eyelidController;
 
     public List<string> dialogueParts;
 
@@ -424,6 +425,7 @@ public class ConversationManager : MonoBehaviour
         SafeSpeak("Alright, we’ll begin the procedure now. You can still ask questions at any time.");
 
         procedureObjects.SetActive(true);
+        eyelidController.TriggerBlink();
 
         // Example hooks:
         // StartCoroutine(ProcedureSequence());

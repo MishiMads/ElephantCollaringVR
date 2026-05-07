@@ -19,7 +19,14 @@ public class EyelidController : MonoBehaviour
     private readonly Vector2 bottomOpen = new Vector2(0f, -812f);
     private readonly Vector2 bottomClosed = new Vector2(0f, -270f);
 
+    public AudioClip helicopterSound;
+
     void Start()
+    {
+        
+    }
+
+    public void TriggerBlink()
     {
         if (topEyelid != null && bottomEyelid != null)
         {
@@ -28,6 +35,10 @@ public class EyelidController : MonoBehaviour
             bottomEyelid.anchoredPosition = bottomOpen;
 
             StartCoroutine(FullBlinkSequence());
+            if (helicopterSound != null)
+            {
+                AudioSource.PlayClipAtPoint(helicopterSound, Camera.main.transform.position);
+            }
         }
     }
 

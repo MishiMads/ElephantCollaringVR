@@ -165,12 +165,30 @@ namespace LLMUnitySamples
 
             string memory = string.Join("\n", currentContextChunks);
             string prompt =
-                "You are a concise assistant. Answer ONLY using the context below. " +
-                "Conversation history:\n" + memory + "\n\n" +
-                "If the answer is not in the context, say: I don't know.\n\n" +
-                "Context:\n" + context + "\n\n" +
-                "Q: " + message + "\n" +
-                "A:";
+                @"You are a retrieval-based assistant.
+
+                Use ONLY the information inside <CONTEXT>.
+                If the answer is not contained in the context, reply exactly:
+                I don't know.
+
+                Keep answers concise.
+                Do not continue the conversation.
+                Do not roleplay.
+                Do not generate dialogue.
+
+                <CHAT_HISTORY>
+                " + memory + @"
+                </CHAT_HISTORY>
+
+                <CONTEXT>
+                " + context + @"
+                </CONTEXT>
+
+                <QUESTION>
+                " + message + @"
+                </QUESTION>
+
+                <ANSWER>";
 
             string response = "";
             await llmAgent.Chat(prompt, token =>

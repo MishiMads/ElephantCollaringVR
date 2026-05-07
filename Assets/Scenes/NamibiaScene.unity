@@ -214,11 +214,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9982642
+      value: -2.5982642
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -256,13 +256,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6204551844386526250, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5987974991635298610, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -2183140317591856408, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
       propertyPath: m_Name
       value: CollarRolledUp
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
       propertyPath: m_TagString
       value: Collar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090290664759978578, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553512518021462896, guid: c1da75a2f91667f42a187f1e088597c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -467,8 +491,12 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
+    - target: {fileID: -9203368300090410779, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -483,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.74
+      value: -3.3400002
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -521,9 +549,105 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: -7553238816612254548, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6522695966643703301, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6186445797578003153, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -5494425934574220502, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -4718255327101220532, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3316184798940513735, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -666517918269665071, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 598541840542201743, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 910746919170450308, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
       propertyPath: m_Name
       value: MeasuringTape
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790183945725220954, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480909740878747892, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852929629529721487, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819001077394492298, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4847314954146382255, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258957464149140486, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978176343850268093, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592301740029244091, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905609870639353253, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649307984373867853, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953085446890567447, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9178353486837351355, guid: 0a147885b51b21240a8a2e77d83e4af0, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1368,7 +1492,7 @@ GameObject:
   - component: {fileID: 102191428}
   - component: {fileID: 102191430}
   - component: {fileID: 102191429}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1947,7 +2071,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ddd8ad41fed686d429a0351a7aeafb93, type: 3}
       propertyPath: m_LocalScale.x
@@ -1963,7 +2087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddd8ad41fed686d429a0351a7aeafb93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.62
+      value: -2.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ddd8ad41fed686d429a0351a7aeafb93, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2004,6 +2128,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ddd8ad41fed686d429a0351a7aeafb93, type: 3}
       propertyPath: m_Name
       value: RealStick
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ddd8ad41fed686d429a0351a7aeafb93, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2510,7 +2638,7 @@ GameObject:
   - component: {fileID: 219231917}
   - component: {fileID: 219231919}
   - component: {fileID: 219231918}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5444,7 +5572,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   sampleInterval: 1
   targetRefreshRateHz: 72
-  windowsRootFolder: C:\Uni\MED8\ElephantCollaringVR\Assets\Tests
   performanceFileName: FPS.txt
   recordFPS: 1
   recordFrameTime: 1
@@ -6622,7 +6749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &454351393
 Transform:
   m_ObjectHideFlags: 0
@@ -6637,24 +6764,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2138819053}
-  - {fileID: 1468964656}
-  - {fileID: 1002070418}
-  - {fileID: 1130192511}
   - {fileID: 2069916536}
-  - {fileID: 31044088}
-  - {fileID: 2010345849}
-  - {fileID: 173955133}
-  - {fileID: 835612956}
-  - {fileID: 36608600}
-  - {fileID: 1249308872}
-  - {fileID: 1167049867}
-  - {fileID: 584196130}
-  - {fileID: 609061822}
   - {fileID: 279182007}
   - {fileID: 456102588}
   - {fileID: 1668066980}
   - {fileID: 739445031}
   - {fileID: 291724437}
+  - {fileID: 584196130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &456102587
@@ -7749,7 +7865,7 @@ GameObject:
   - component: {fileID: 571826248}
   - component: {fileID: 571826250}
   - component: {fileID: 571826249}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8066,7 +8182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46de7557d154946468536a7814fc14fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.6554
+      value: 3.6553998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 46de7557d154946468536a7814fc14fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8107,6 +8223,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 46de7557d154946468536a7814fc14fd, type: 3}
       propertyPath: m_Name
       value: Dart
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 46de7557d154946468536a7814fc14fd, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8733,11 +8853,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.03
+      value: -1.57
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8795,9 +8915,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3573990068891550034, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_Name
       value: ReversalDrugSyringe
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3453576816810756202, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalScale.x
@@ -8814,6 +8942,14 @@ PrefabInstance:
     - target: {fileID: 3453576816810756202, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875466669884741659, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531578303558919645, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6531578303558919645, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_IsActive
@@ -9814,6 +9950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConversationManager
   speaker: {fileID: 1349827343}
   whisper: {fileID: 88146811}
+  eyelidController: {fileID: 0}
   dialogueParts:
   - "Hello there. Let me tell you about something important happening here in Namibia.
     Some elephants you may see out in the wild are fitted with GPS tracking collars.
@@ -10132,7 +10269,7 @@ GameObject:
   - component: {fileID: 713936615}
   - component: {fileID: 713936617}
   - component: {fileID: 713936616}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16340,7 +16477,7 @@ Transform:
   m_GameObject: {fileID: 783319302}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.15177837, z: 0, w: 0.9884146}
-  m_LocalPosition: {x: -0.72, y: 0.1, z: -1.23}
+  m_LocalPosition: {x: -0.72, y: -0.2, z: -1.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16790,6 +16927,48 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821256319}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &821906586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821906587}
+  m_Layer: 0
+  m_Name: Tools
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &821906587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821906586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1468964656}
+  - {fileID: 1002070418}
+  - {fileID: 1130192511}
+  - {fileID: 31044088}
+  - {fileID: 2010345849}
+  - {fileID: 173955133}
+  - {fileID: 835612956}
+  - {fileID: 36608600}
+  - {fileID: 1249308872}
+  - {fileID: 1167049867}
+  - {fileID: 609061822}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827728109
 GameObject:
   m_ObjectHideFlags: 0
@@ -16852,7 +17031,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 809a2112690d54845b6bb8624c44a711, type: 3}
       propertyPath: m_LocalScale.x
@@ -16868,7 +17047,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 809a2112690d54845b6bb8624c44a711, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.26
+      value: -1.86
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 809a2112690d54845b6bb8624c44a711, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16909,6 +17088,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 809a2112690d54845b6bb8624c44a711, type: 3}
       propertyPath: m_Name
       value: Medkit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 809a2112690d54845b6bb8624c44a711, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17247,10 +17430,10 @@ MonoBehaviour:
   footMeasured: 0
   elephantCooled: 0
   elephantRenderer: {fileID: 2069916535}
-  texBaseInjury: {fileID: 2800000, guid: c26b23dc7f73d7e419d0e93802b59937, type: 3}
-  texInjuryAndSpray: {fileID: 2800000, guid: d6ee253f273fa284ca08fe0a19a7fc99, type: 3}
-  texHealedAndSpray: {fileID: 2800000, guid: d198bc87c70e35741bc8fa1a63eacb63, type: 3}
-  texHealedNoSpray: {fileID: 2800000, guid: 8e9836cd27e7dd44f8f9bceb5ee8f661, type: 3}
+  texBaseInjury: {fileID: 2800000, guid: 8351fd52c11db2c4eabb8916903f57c8, type: 3}
+  texInjuryAndSpray: {fileID: 2800000, guid: af5aed8599ab75c4fb8347fb2145f7b7, type: 3}
+  texHealedAndSpray: {fileID: 2800000, guid: 391c73b27ff16c6469842615ed8e1a67, type: 3}
+  texHealedNoSpray: {fileID: 2800000, guid: 8afb4d75979b4134db34cfac201a9f2b, type: 3}
   triggerZones:
   - {fileID: 1702378453}
   - {fileID: 1529394821}
@@ -19175,7 +19358,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalScale.x
@@ -19191,7 +19374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.623
+      value: -2.223
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_LocalPosition.y
@@ -19232,6 +19415,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
       propertyPath: m_Name
       value: Machete
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ff449e2bdd969242a30ad8382807198, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19358,7 +19545,7 @@ GameObject:
   - component: {fileID: 1008170463}
   - component: {fileID: 1008170465}
   - component: {fileID: 1008170464}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20015,7 +20202,7 @@ GameObject:
   - component: {fileID: 1063597978}
   - component: {fileID: 1063597980}
   - component: {fileID: 1063597979}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20879,11 +21066,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.528
+      value: -3.128
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20921,6 +21108,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3052846497866317092, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -2577548232221058511, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -20940,6 +21135,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
       propertyPath: m_Name
       value: Water bucket
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f5986ac2e6977e489aaee658ded5cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -22518,11 +22717,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.448
+      value: -3.0479999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22576,9 +22775,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3573990068891550034, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_Name
       value: BlodDrawSyringe
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3453576816810756202, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22591,6 +22798,14 @@ PrefabInstance:
     - target: {fileID: 3453576816810756202, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4875466669884741659, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6531578303558919645, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6531578303558919645, guid: 85deb8738a5abe74d97de88ca40c55da, type: 3}
       propertyPath: m_IsActive
@@ -23216,7 +23431,7 @@ GameObject:
   - component: {fileID: 1205041164}
   - component: {fileID: 1205041166}
   - component: {fileID: 1205041165}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23673,7 +23888,7 @@ GameObject:
   - component: {fileID: 1240665017}
   - component: {fileID: 1240665019}
   - component: {fileID: 1240665018}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23831,7 +24046,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a28cf62a739346446b09968dd5e281b9, type: 3}
       propertyPath: m_LocalScale.x
@@ -23847,7 +24062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a28cf62a739346446b09968dd5e281b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.583
+      value: -2.183
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a28cf62a739346446b09968dd5e281b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23888,6 +24103,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a28cf62a739346446b09968dd5e281b9, type: 3}
       propertyPath: m_Name
       value: SprayCan
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a28cf62a739346446b09968dd5e281b9, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25103,7 +25322,7 @@ GameObject:
   - component: {fileID: 1313681118}
   - component: {fileID: 1313681120}
   - component: {fileID: 1313681119}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26086,7 +26305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4488318417266879043, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: MaxTextLength
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5134685107130997100, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_IsActive
@@ -26102,7 +26321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6055201706805903424, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1800416.5
+      value: -1902091.4
       objectReference: {fileID: 0}
     - target: {fileID: 6125506179399219847, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: speaker
@@ -26125,8 +26344,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: _model
+      value: Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _remote
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: _embeddingLength
+      value: 3072
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: maxContextLength
+      value: 262144
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: presetVoiceID
@@ -26324,6 +26555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LLMAndWhisperPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 8241298818650183246, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: useGpu
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8380297456394251945, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -26346,7 +26581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8433043260923303174, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 68261.22
+      value: 73249.22
       objectReference: {fileID: 0}
     - target: {fileID: 8747892450160276225, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_IsActive
@@ -26650,7 +26885,7 @@ GameObject:
   - component: {fileID: 1373508649}
   - component: {fileID: 1373508648}
   - component: {fileID: 1373508647}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27826,7 +28061,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27870,7 +28105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.049999997
+      value: 0.049999993
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalScale.y
@@ -27878,11 +28113,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.049999997
+      value: 0.049999993
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.107
+      value: -1.707
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27923,6 +28158,10 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_Name
       value: Stethoscope
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 098f1c7f1ab5e254cb2187a9a1930af6, type: 3}
       propertyPath: m_Name
@@ -31172,75 +31411,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ConversationManager
   speaker: {fileID: 1349827343}
   whisper: {fileID: 88146811}
+  eyelidController: {fileID: 0}
   dialogueParts:
-  - "Hello there. Let me tell you about something important happening here in Namibia.
-    Some elephants you may see out in the wild are fitted with GPS tracking collars.
-    These are called collared elephants. The collars allow conservation teams to
-    monitor their movements in real time. This technology helps us understand where
-    elephants travel, when they approach farms or villages, and how we can respond
-    before problems arise. It\u2019s one of the most important tools we have to help
-    both people and elephants live safely alongside each other. Do you have any questions
-    so far?"
-  - Now, you might be wondering why we collar elephants in the first place. There
-    are several important reasons. First, it provides early warning. When elephants
-    move toward villages, farms, or shared water sources, communities can be alerted
-    in advance and prepare. Second, it helps us understand elephant movement. Elephants
-    travel across large areas in search of food and water, and tracking shows migration
-    routes, seasonal patterns, and where they come into contact with people. Third,
-    it reduces human-elephant conflict. When elephant movements are known, communities
-    and wildlife officers can prepare in advance and avoid dangerous surprises, crop
-    damage, and property destruction. Finally, it supports conservation planning.
-    The data helps experts design wildlife corridors and land-use strategies that
-    allow elephants to move safely while reducing risks to people. Any questions
-    about that?
-  - Living near elephants is not always easy. Roaming elephants can create serious
-    challenges for communities. They may destroy farmlands by eating or trampling
-    crops, which can be devastating for families who depend on farming for food and
-    income. They can also damage fences and infrastructure, as they are powerful
-    animals capable of breaking barriers and water installations. There is also a
-    risk to human safety. Unexpected encounters between people and elephants can
-    be dangerous and may lead to injuries or even loss of life. When damage happens
-    repeatedly, communities may become frustrated and retaliate against elephants.
-    This puts elephant populations at risk and makes conservation more difficult.
-    This situation is known as human-elephant conflict, where people and elephants
-    compete for space and resources. Does that make sense, or would you like me to
-    explain anything further?
-  - "Now let\u2019s look at how the collaring process works. First, the elephant
-    is located, either from the air or on the ground. A veterinarian then darts the
-    elephant with a tranquilizer. After being darted, the elephant may move for a
-    short distance before becoming calm enough for the team to approach. Once the
-    team reaches the elephant, their first priority is to make sure it can breathe
-    properly. The trunk must be kept clear, and sometimes a branch is placed inside
-    to help keep the airway open. Next, the team fits the tracking collar. If the
-    elephant already has an old collar, it is removed first. The new collar is then
-    placed around the neck and secured. Because of the elephant\u2019s size, several
-    people and sometimes ropes are needed to position the collar correctly. At the
-    same time, the team may carry out other important tasks. These include clearing
-    nearby bushes for safe access, measuring the elephant\u2019s body and tusks,
-    pouring water over the elephant to prevent overheating, treating any visible
-    injuries, checking vital signs, and taking blood samples if needed. Once everything
-    is complete, the veterinarian administers a reversal drug. The team then moves
-    away to give the elephant space to wake up and recover safely. Do you want me
-    to go over any part of that again?"
-  - "Collaring elephants also comes with challenges and risks. One major challenge
-    is when the elephant does not fall onto its side. Because an elephant can weigh
-    several tons, it is very difficult to reposition it. In such cases, additional
-    people and sometimes even a vehicle are needed to move the elephant into a safer
-    position. There are also important safety concerns. The area where the dart enters
-    the elephant\u2019s body is highly toxic to humans. For this reason, the site
-    may be marked with blue spray paint to show that it must not be touched. These
-    precautions are essential to keep both the team and the animal safe. Any questions
-    before we move on?"
-  - "In the end, elephant collaring is about more than just tracking animals. It
-    is about creating a balance between people and wildlife. By understanding elephant
-    movements, we can reduce conflict, protect communities, and ensure that elephants
-    continue to move safely through their natural habitats. Coexistence is possible,
-    but it requires knowledge, planning, and cooperation. Anything you\u2019d like
-    to ask before we finish?"
+  - In Namibia, some wild elephants are fitted with GPS tracking collars that allow
+    conservation teams to monitor their movements in real time, helping communities
+    and wildlife coexist more safely. These collars provide early warnings when elephants
+    approach villages, farms, or water sources, helping reduce dangerous human-elephant
+    conflict, crop damage, and property destruction while also supporting conservation
+    planning through the study of migration routes and seasonal movement patterns.
+    Living near elephants can be challenging because they may damage crops, fences,
+    and infrastructure or create risks to human safety, which can lead to retaliation
+    against elephants and threaten conservation efforts. The collaring process involves
+    locating and tranquilizing the elephant, ensuring it can breathe safely while
+    sedated, fitting or replacing the GPS collar, collecting health and measurement
+    data, and then administering a reversal drug so the elephant can recover. Although
+    the process carries challenges and safety risks for both the animal and the team,
+    elephant collaring remains an essential tool for protecting communities, supporting
+    conservation, and creating a sustainable balance between people and wildlife.
+    Do you have any questions regarding this?
   allowLLM: 1
   itemsAndElephant: []
   dudesA: []
-  procedureObjects: {fileID: 0}
+  procedureObjects: {fileID: 454351392}
 --- !u!95 &1640977226
 Animator:
   serializedVersion: 7
@@ -31346,6 +31538,7 @@ MonoBehaviour:
   closeDuration: 0.5
   stayClosedDuration: 0.5
   openDuration: 2
+  helicopterSound: {fileID: 8300000, guid: 58e795616d2dd294d81180fe9da2a899, type: 3}
 --- !u!114 &1642091069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35629,11 +35822,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 454351393}
+    m_TransformParent: {fileID: 821906587}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.814
+      value: -0.786
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35724,12 +35917,24 @@ PrefabInstance:
       value: GPSCollarRolledOut
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
       propertyPath: m_TagString
       value: Collar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553512518021462896, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6157162907176914379, guid: 1728542145fc4d24cb3ef3ba2f4fa2e6, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36240,7 +36445,7 @@ GameObject:
   - component: {fileID: 2071110908}
   - component: {fileID: 2071110910}
   - component: {fileID: 2071110909}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36383,7 +36588,7 @@ GameObject:
   - component: {fileID: 2077959278}
   - component: {fileID: 2077959280}
   - component: {fileID: 2077959279}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ISDK_HandGrabInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36563,6 +36768,10 @@ PrefabInstance:
       propertyPath: _centerEyeCamera
       value: 
       objectReference: {fileID: 1751283795}
+    - target: {fileID: 3903482225804038116, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4148778239110795873, guid: 0a7d2469f24041c4284c66706f84c45e, type: 3}
       propertyPath: m_Name
       value: '[BuildingBlock] OVRInteractionComprehensive'
@@ -37261,3 +37470,4 @@ SceneRoots:
   - {fileID: 454351393}
   - {fileID: 848550291}
   - {fileID: 363278260}
+  - {fileID: 821906587}

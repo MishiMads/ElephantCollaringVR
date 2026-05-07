@@ -16,7 +16,7 @@ public class PerformanceRecorder : MonoBehaviour
 
     [Header("File Settings")]
     [Tooltip("Used in Unity Editor or Windows build only.")]
-    public string windowsRootFolder = @"C:\Uni\MED8\ElephantCollaringVR\Assets\Tests";
+    private string windowsRootFolder = @"C:\Users\Nikla\Documents\GitkrakenMapper\ElephantCollaringVR\Assets\Tests";
 
     [Tooltip("File name inside the participant folder.")]
     public string performanceFileName = "FPS.txt";
