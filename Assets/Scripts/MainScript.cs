@@ -1,6 +1,8 @@
+using Meta.WitAi.TTS.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Whisper.Samples;
 
 public class MainScript : MonoBehaviour
 {
@@ -27,9 +29,28 @@ public class MainScript : MonoBehaviour
 
     public static MainScript Instance;
 
+    public ConversationManager conversationManager;
+
+    private bool procedureCompleted = false;
+    public bool AllTasksCompleted()
+    {
+        return stickInserted && collarOn && isSprayed && isHealed &&
+               bloodDrawn && heartChecked && footMeasured && elephantCooled;
+
+    }
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void Update()
+    {
+        if (AllTasksCompleted() && !procedureCompleted)
+        {
+            procedureCompleted = true;
+            conversationManager.SafeSpeak("You have now completed the procedure, but you can still ask me anything.");
+        }
     }
 
     // --- STEP 1: THE STICK (MANDATORY FIRST) ---

@@ -29,6 +29,8 @@ public class ConversationManager : MonoBehaviour
     public List<GameObject> itemsAndElephant;
     public List<GameObject> dudesA;
 
+    public GameObject procedureObjects;
+
     public enum ConversationState
     {
         Idle,
@@ -84,7 +86,7 @@ public class ConversationManager : MonoBehaviour
 
         StartConversation();
     }
-    void SafeSpeak(string text)
+    public void SafeSpeak(string text)
     {
         if (speaker.IsSpeaking)
         {
@@ -259,8 +261,6 @@ public class ConversationManager : MonoBehaviour
                 {
                     rag.CancelRequests();
                 }
-                // 🔥 CRITICAL
-                // rag.SubmitDirectLLM(playerText); //not with rag
                 rag.SubmitExternalInput(playerText); //with rag
                 waitingForLLMResponse = true;
             }
@@ -422,6 +422,8 @@ public class ConversationManager : MonoBehaviour
         procedureStarted = true; // ✅ IMPORTANT
 
         SafeSpeak("Alright, we’ll begin the procedure now. You can still ask questions at any time.");
+
+        procedureObjects.SetActive(true);
 
         // Example hooks:
         // StartCoroutine(ProcedureSequence());
