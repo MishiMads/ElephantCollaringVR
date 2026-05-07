@@ -417,35 +417,40 @@ public class ConversationManager : MonoBehaviour
 
     void StartProcedure()
     {
+        if (procedureStarted)
+            return;
+
+        StartCoroutine(StartProcedureSequence());
+    }
+
+    IEnumerator StartProcedureSequence()
+    {
         Debug.Log("🚀 PROCEDURE STARTED");
 
         freeQuestionCount = 0;
-        procedureStarted = true; // ✅ IMPORTANT
+        procedureStarted = true;
+        waitingForProcedureAnswer = false;
 
-        SafeSpeak("Alright, we’ll begin the procedure now. You can still ask questions at any time.");
+        currentState = ConversationState.Processing;
 
-        procedureObjects.SetActive(true);
+        SafeSpeak("Alright, we’ll begin the procedure now.");
 
-        yield return StartCoroutine(eyelidController.PlayProcedureTransition(() =>
+        yield return new WaitUntil(() => !speaker.IsSpeaking);
+
+        if (eyelidController != null)
+        {
+            yield return StartCoroutine(eyelidController.PlayProcedureTransition(() =>
+            {
+                procedureObjects.SetActive(true);
+            }));
+        }
+        else
         {
             procedureObjects.SetActive(true);
-        }));
-
-        // Example hooks:
-        // StartCoroutine(ProcedureSequence());
-        // Enable components
-        // Trigger animations
-        // Load scene
-
-        /*foreach (var item in itemsAndElephant)
-        {
-            item.SetActive(true);
         }
-        foreach (var dude in dudesA)
-        {
-            dude.SetActive(true);
-        }
-        */
 
+        SafeSpeak("You can still ask questions at any time.");
+
+        currentState = ConversationState.WaitingForPlayer;
     }
 }
