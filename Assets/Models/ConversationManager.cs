@@ -2,8 +2,10 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Whisper.Samples;
+using Whisper.Utils;
 
 public class ConversationManager : MonoBehaviour
 {
@@ -47,24 +49,31 @@ public class ConversationManager : MonoBehaviour
     {
         text = text.ToLower().Trim();
 
-        return text.StartsWith("no")
-            || text == "no"
-            || text.Contains("no thanks")
-            || text.Contains("that's all")
-            || text.Contains("nothing else")
-            || text.Contains("you can proceed");
+        string[] noKeywords =
+        {
+        "no", "nope", "nah", "negative", "not now","not really","i'm good","im good",
+        "we're good","were good", "that's all", "thats all", "nothing else", "no thanks",
+        "no thank you","don't", "dont", "stop", "cancel", "exit", "quit",
+        "leave", "end", "finished", "done", "all set", "you can proceed", "go ahead",
+        "continue"
+    };
+
+        return noKeywords.Any(k => text.Contains(k));
     }
 
     bool IsYesKeyword(string text)
     {
         text = text.ToLower().Trim();
 
-        return text.StartsWith("yes")
-            || text == "yes"
-            || text.Contains("yeah")
-            || text.Contains("sure")
-            || text.Contains("okay")
-            || text.Contains("ok");
+        string[] yesKeywords =
+        {
+        "yes", "yeah", "yep", "yup","sure","okay","ok","affirmative", "definitely",
+        "absolutely","certainly", "of course", "sounds good", "why not",
+        "please do", "go ahead", "continue", "proceed", "do it", "let's do it",
+        "lets do it", "i agree", "works for me", "fine", "alright", "all right"
+    };
+
+        return yesKeywords.Any(k => text.Contains(k));
     }
 
     string[] followUps = {

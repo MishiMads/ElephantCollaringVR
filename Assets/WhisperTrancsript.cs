@@ -14,6 +14,8 @@ namespace Whisper.Samples
         public ConversationManager conversationManager;
         public TMPro.TMP_Text stateText;
 
+        private bool isListening;
+
         [Header("Options")]
         public bool printLanguage = true;
         public bool streamSegments = true;
@@ -31,19 +33,30 @@ namespace Whisper.Samples
         public event Action<string> OnPartialTranscriptUpdated;
 
         private string _buffer = "";
+        private void Start()
+        {
+            if (!microphoneRecord.IsRecording)
+            {
+                microphoneRecord.useVad = true;
+                microphoneRecord.vadStop = true;
 
+                microphoneRecord.StartRecord();
+            }
+        }
         private void Awake()
         {
+            if (microphoneRecord != null)
+            {
+                microphoneRecord.OnVadStop += OnVadStop;
+            }
+
             if (whisper != null)
             {
                 whisper.OnNewSegment += OnNewSegment;
                 whisper.OnProgress += OnProgressHandler;
             }
 
-            if (microphoneRecord != null)
-            {
-                microphoneRecord.OnRecordStop += OnRecordStop;
-            }
+            
 
             SetState("Idle");
         }
@@ -67,23 +80,50 @@ namespace Whisper.Samples
             if (whisper == null || microphoneRecord == null)
             {
                 SetState("Error");
-                UnityEngine.Debug.LogError("WhisperManager or MicrophoneRecord is missing.");
                 return;
             }
 
-            if (microphoneRecord.IsRecording)
+            if (isListening)
                 return;
 
             _buffer = "";
             CurrentTranscript = "";
             LastFullTranscript = "";
 
-            microphoneRecord.useVad = true;
-            microphoneRecord.vadStop = useVadAutoStop;
-            microphoneRecord.vadStopTime = vadSilenceTimeout;
+            isListening = true;
 
-            microphoneRecord.StartRecord();
+            microphoneRecord.IsSessionActive = true;
+
             SetState("Listening...");
+        }
+
+        private async void OnVadStop(AudioChunk recordedAudio)
+        {
+            SetState("Processing...");
+
+            var res = await whisper.GetTextAsync(
+                recordedAudio.Data,
+                recordedAudio.Frequency,
+                recordedAudio.Channels
+            );
+
+            if (res == null)
+            {
+                SetState("Idle");
+                return;
+            }
+
+            var text = res.Result;
+
+            LastFullTranscript = text;
+            CurrentTranscript = text;
+
+            OnTranscriptCompleted?.Invoke(text);
+
+            isListening = false;
+            microphoneRecord.IsSessionActive = false;
+
+            SetState("Idle");
         }
 
         public void StopRecording()
@@ -91,7 +131,7 @@ namespace Whisper.Samples
             if (microphoneRecord == null || !microphoneRecord.IsRecording)
                 return;
 
-            microphoneRecord.StopRecord();
+            
         }
 
         private async void OnRecordStop(AudioChunk recordedAudio)
