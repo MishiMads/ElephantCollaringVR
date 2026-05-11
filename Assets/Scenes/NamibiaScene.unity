@@ -26291,6 +26291,10 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1.0004008
       objectReference: {fileID: 0}
+    - target: {fileID: 3772223758998808263, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: _numGPULayers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4127652863182150209, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -26345,19 +26349,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _model
-      value: Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
+      value: mistral-7b-instruct-v0.3-q4_k_m.gguf
       objectReference: {fileID: 0}
     - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _remote
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
+      propertyPath: _numGPULayers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: _embeddingLength
-      value: 3072
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 7018594757107936872, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: maxContextLength
-      value: 262144
+      value: 32768
       objectReference: {fileID: 0}
     - target: {fileID: 7023065220714683632, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: presetVoiceID
