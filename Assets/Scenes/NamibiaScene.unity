@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &6797755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5578761272040800933, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
-  m_PrefabInstance: {fileID: 1132975902}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02d4f2f4a56a5c4bb1f95bc6a8f3a0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &13889763
 GameObject:
   m_ObjectHideFlags: 0
@@ -10363,305 +10352,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677112487}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &677528537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22059fde92c05624c97b7343a41267dd, type: 3}
-  m_PrefabInstance: {fileID: 770027524}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &677528538 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 22059fde92c05624c97b7343a41267dd, type: 3}
-  m_PrefabInstance: {fileID: 770027524}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &677528539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677528537}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea67023b70e718045ba868796b1526a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BrieferLogic
-  animatorBrief: {fileID: 677528540}
-  spine: {fileID: 1739281825}
-  head: {fileID: 1934576097}
-  cameraTarget: {fileID: 0}
-  headMaxYaw: 100
-  spineMaxYaw: 100
-  rotationSpeed: 5
---- !u!95 &677528540 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 22059fde92c05624c97b7343a41267dd, type: 3}
-  m_PrefabInstance: {fileID: 770027524}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &677528541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677528537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031d64bd0152bfa43a6f53fd64858c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BrieferCode
-  animatorBrief: {fileID: 677528540}
-  cameraTarget: {fileID: 0}
-  overallWeight: 1
-  bodyWeight: 0.2
-  headWeight: 0.8
-  eyesWeight: 1
-  clampWeight: 0.5
-  dialogue:
-  - "Hello there. Let me tell you about something important happening here in Namibia.
-    Some elephants you may see out in the wild are fitted with GPS tracking collars.
-    These are called collared elephants. The collars allow conservation teams to
-    monitor their movements in real time. This technology helps us understand where
-    elephants travel, when they approach farms or villages, and how we can respond
-    before problems arise. It\u2019s one of the most important tools we have to help
-    both people and elephants live safely alongside each other. Do you have any questions
-    so far?"
-  - Now, you might be wondering why we collar elephants in the first place. There
-    are several important reasons. First, it provides early warning. When elephants
-    move toward villages, farms, or shared water sources, communities can be alerted
-    in advance and prepare. Second, it helps us understand elephant movement. Elephants
-    travel across large areas in search of food and water, and tracking shows migration
-    routes, seasonal patterns, and where they come into contact with people. Third,
-    it reduces human-elephant conflict. When elephant movements are known, communities
-    and wildlife officers can prepare in advance and avoid dangerous surprises, crop
-    damage, and property destruction. Finally, it supports conservation planning.
-    The data helps experts design wildlife corridors and land-use strategies that
-    allow elephants to move safely while reducing risks to people. Any questions
-    about that?
-  - Living near elephants is not always easy. Roaming elephants can create serious
-    challenges for communities. They may destroy farmlands by eating or trampling
-    crops, which can be devastating for families who depend on farming for food and
-    income. They can also damage fences and infrastructure, as they are powerful
-    animals capable of breaking barriers and water installations. There is also a
-    risk to human safety. Unexpected encounters between people and elephants can
-    be dangerous and may lead to injuries or even loss of life. When damage happens
-    repeatedly, communities may become frustrated and retaliate against elephants.
-    This puts elephant populations at risk and makes conservation more difficult.
-    This situation is known as human-elephant conflict, where people and elephants
-    compete for space and resources. Does that make sense, or would you like me to
-    explain anything further?
-  - "Now let\u2019s look at how the collaring process works. First, the elephant
-    is located, either from the air or on the ground. A veterinarian then darts the
-    elephant with a tranquilizer. After being darted, the elephant may move for a
-    short distance before becoming calm enough for the team to approach. Once the
-    team reaches the elephant, their first priority is to make sure it can breathe
-    properly. The trunk must be kept clear, and sometimes a branch is placed inside
-    to help keep the airway open. Next, the team fits the tracking collar. If the
-    elephant already has an old collar, it is removed first. The new collar is then
-    placed around the neck and secured. Because of the elephant\u2019s size, several
-    people and sometimes ropes are needed to position the collar correctly. At the
-    same time, the team may carry out other important tasks. These include clearing
-    nearby bushes for safe access, measuring the elephant\u2019s body and tusks,
-    pouring water over the elephant to prevent overheating, treating any visible
-    injuries, checking vital signs, and taking blood samples if needed. Once everything
-    is complete, the veterinarian administers a reversal drug. The team then moves
-    away to give the elephant space to wake up and recover safely. Do you want me
-    to go over any part of that again, and anythjing I need to show? "
-  - "Collaring elephants also comes with challenges and risks. One major challenge
-    is when the elephant does not fall onto its side. Because an elephant can weigh
-    several tons, it is very difficult to reposition it. In such cases, additional
-    people and sometimes even a vehicle are needed to move the elephant into a safer
-    position. There are also important safety concerns. The area where the dart enters
-    the elephant\u2019s body is highly toxic to humans. For this reason, the site
-    may be marked with blue spray paint to show that it must not be touched. These
-    precautions are essential to keep both the team and the animal safe. Any questions
-    before we move on?"
-  - "In the end, elephant collaring is about more than just tracking animals. It
-    is about creating a balance between people and wildlife. By understanding elephant
-    movements, we can reduce conflict, protect communities, and ensure that elephants
-    continue to move safely through their natural habitats. Coexistence is possible,
-    but it requires knowledge, planning, and cooperation. Anything you\u2019d like
-    to ask before we finish?"
---- !u!82 &677528542
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677528537}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &677528543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677528537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d33eef90e95dfd143988a39af6bb63fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConversationManager
-  speaker: {fileID: 1349827343}
-  whisper: {fileID: 88146811}
-  eyelidController: {fileID: 0}
-  dialogueParts:
-  - "Hello there. Let me tell you about something important happening here in Namibia.
-    Some elephants you may see out in the wild are fitted with GPS tracking collars.
-    These are called collared elephants. The collars allow conservation teams to
-    monitor their movements in real time. This technology helps us understand where
-    elephants travel, when they approach farms or villages, and how we can respond
-    before problems arise. It\u2019s one of the most important tools we have to help
-    both people and elephants live safely alongside each other. Do you have any questions
-    so far?"
-  - Living near elephants is not always easy. Roaming elephants can create serious
-    challenges for communities. They may destroy farmlands by eating or trampling
-    crops, which can be devastating for families who depend on farming for food and
-    income. They can also damage fences and infrastructure, as they are powerful
-    animals capable of breaking barriers and water installations. There is also a
-    risk to human safety. Unexpected encounters between people and elephants can
-    be dangerous and may lead to injuries or even loss of life. When damage happens
-    repeatedly, communities may become frustrated and retaliate against elephants.
-    This puts elephant populations at risk and makes conservation more difficult.
-    This situation is known as human-elephant conflict, where people and elephants
-    compete for space and resources. Does that make sense, or would you like me to
-    explain anything further?
-  - Living near elephants is not always easy. Roaming elephants can create serious
-    challenges for communities. They may destroy farmlands by eating or trampling
-    crops, which can be devastating for families who depend on farming for food and
-    income. They can also damage fences and infrastructure, as they are powerful
-    animals capable of breaking barriers and water installations. There is also a
-    risk to human safety. Unexpected encounters between people and elephants can
-    be dangerous and may lead to injuries or even loss of life. When damage happens
-    repeatedly, communities may become frustrated and retaliate against elephants.
-    This puts elephant populations at risk and makes conservation more difficult.
-    This situation is known as human-elephant conflict, where people and elephants
-    compete for space and resources. Does that make sense, or would you like me to
-    explain anything further?
-  - "Now let\u2019s look at how the collaring process works. First, the elephant
-    is located, either from the air or on the ground. A veterinarian then darts the
-    elephant with a tranquilizer. After being darted, the elephant may move for a
-    short distance before becoming calm enough for the team to approach. Once the
-    team reaches the elephant, their first priority is to make sure it can breathe
-    properly. The trunk must be kept clear, and sometimes a branch is placed inside
-    to help keep the airway open. Next, the team fits the tracking collar. If the
-    elephant already has an old collar, it is removed first. The new collar is then
-    placed around the neck and secured. Because of the elephant\u2019s size, several
-    people and sometimes ropes are needed to position the collar correctly. At the
-    same time, the team may carry out other important tasks. These include clearing
-    nearby bushes for safe access, measuring the elephant\u2019s body and tusks,
-    pouring water over the elephant to prevent overheating, treating any visible
-    injuries, checking vital signs, and taking blood samples if needed. Once everything
-    is complete, the veterinarian administers a reversal drug. The team then moves
-    away to give the elephant space to wake up and recover safely. Do you want me
-    to go over any part of that again?"
-  - "Collaring elephants also comes with challenges and risks. One major challenge
-    is when the elephant does not fall onto its side. Because an elephant can weigh
-    several tons, it is very difficult to reposition it. In such cases, additional
-    people and sometimes even a vehicle are needed to move the elephant into a safer
-    position. There are also important safety concerns. The area where the dart enters
-    the elephant\u2019s body is highly toxic to humans. For this reason, the site
-    may be marked with blue spray paint to show that it must not be touched. These
-    precautions are essential to keep both the team and the animal safe. Any questions
-    before we move on?"
-  - "In the end, elephant collaring is about more than just tracking animals. It
-    is about creating a balance between people and wildlife. By understanding elephant
-    movements, we can reduce conflict, protect communities, and ensure that elephants
-    continue to move safely through their natural habitats. Coexistence is possible,
-    but it requires knowledge, planning, and cooperation. Anything you\u2019d like
-    to ask before we finish?"
-  allowLLM: 1
-  itemsAndElephant: []
-  dudesA: []
-  procedureObjects: {fileID: 0}
 --- !u!1 &682246590
 GameObject:
   m_ObjectHideFlags: 0
@@ -26774,7 +26464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4488318417266879043, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: MaxTextLength
-      value: 150
+      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 4954399254680838755, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_Enabled
@@ -26794,7 +26484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6055201706805903424, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2405613.5
+      value: -2419444.8
       objectReference: {fileID: 0}
     - target: {fileID: 6125506179399219847, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: speaker
@@ -27070,7 +26760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8433043260923303174, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 77709.17
+      value: 79188.805
       objectReference: {fileID: 0}
     - target: {fileID: 8747892450160276225, guid: 87d78c0b1194d0942b78c79533c6e864, type: 3}
       propertyPath: m_IsActive
@@ -32033,6 +31723,10 @@ MonoBehaviour:
   stayClosedDuration: 0.5
   openDuration: 2
   helicopterSound: {fileID: 2138819054}
+  topOpen: {x: 0, y: 770}
+  topClosed: {x: 0, y: 240}
+  bottomOpen: {x: 0, y: -770}
+  bottomClosed: {x: 0, y: -240}
 --- !u!114 &1642091069
 MonoBehaviour:
   m_ObjectHideFlags: 0

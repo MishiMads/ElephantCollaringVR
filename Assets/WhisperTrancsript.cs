@@ -197,8 +197,10 @@ namespace Whisper.Samples
 
         }
 
+
         public void OnPeaceSignDetected()
         {
+            microphoneRecord.ResetSpeechDetection();
             UnityEngine.Debug.Log("Peace gesture triggered");
             if (CurrentState == "Idle")
                 conversationManager.StartPlayerRecording();
