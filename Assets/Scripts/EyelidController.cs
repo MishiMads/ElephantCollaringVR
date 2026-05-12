@@ -101,6 +101,11 @@ public class EyelidController : MonoBehaviour
         Debug.Log("Eyelids: open again");
 
         isRunning = false;
+
+        if (MainScript.Instance != null)
+        {
+            MainScript.Instance.StartProcedureGuidance();
+        }
     }
 
     private IEnumerator AnimateLids(

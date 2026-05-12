@@ -58,10 +58,17 @@ public class MainScript : MonoBehaviour
     [Header("Visual Settings")]
     public bool onlyShowAllowedCurrentStep = true;
 
+    [Header("NPC Guidance")]
+    public bool useNpcGuidance = true;
+    public float guidanceCooldown = 2.0f;
+
     [Header("Conversation")]
     public ConversationManager conversationManager;
 
     private bool procedureCompleted = false;
+    private bool guidanceStarted = false;
+    private bool reversalInstructionGiven = false;
+    private float lastGuidanceTime = -999f;
 
     private void Awake()
     {
@@ -81,13 +88,11 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    // This means the whole procedure is done, including the reversal drug.
     public bool AllTasksCompleted()
     {
         return PreReversalTasksCompleted() && reversalDrugAdministered;
     }
 
-    // This means everything before the reversal drug is done.
     public bool PreReversalTasksCompleted()
     {
         return stickInserted &&
@@ -101,14 +106,28 @@ public class MainScript : MonoBehaviour
                elephantCooled;
     }
 
+    // Call this when the eyelids have fully opened again.
+    public void StartProcedureGuidance()
+    {
+        if (guidanceStarted)
+        {
+            return;
+        }
+
+        guidanceStarted = true;
+        SpeakGuidance("Start by picking up the branch.", true);
+    }
+
     private void CompleteProcedure()
     {
+        if (procedureCompleted)
+        {
+            return;
+        }
+
         procedureCompleted = true;
 
-        if (conversationManager != null)
-        {
-            conversationManager.SafeSpeak("You have now completed the procedure, but you can still ask me anything.");
-        }
+        SpeakGuidance("You have now completed the procedure, but you can still ask me anything.", true);
 
         Debug.Log("Full procedure completed.");
     }
@@ -128,6 +147,7 @@ public class MainScript : MonoBehaviour
 
         if (onlyShowAllowedCurrentStep && !IsToolAllowedNow(grabbedTool))
         {
+            SpeakWrongToolGuidance(grabbedTool);
             Debug.Log("This tool is not allowed right now: " + grabbedTool);
             return;
         }
@@ -208,49 +228,27 @@ public class MainScript : MonoBehaviour
             return;
         }
 
-        // Do not use socket.SetActive(false).
-        // That would turn off the trigger collider.
-        // This only hides the visual parts.
+        Transform visuals = socket.transform.Find("Visuals");
 
-        Renderer[] renderers = socket.GetComponentsInChildren<Renderer>(true);
-        foreach (Renderer renderer in renderers)
+        if (visuals == null)
         {
-            renderer.enabled = visible;
+            Debug.LogWarning(socket.name + " does not have a child named Visuals.");
+            return;
         }
 
-        Canvas[] canvases = socket.GetComponentsInChildren<Canvas>(true);
-        foreach (Canvas canvas in canvases)
-        {
-            canvas.enabled = visible;
-        }
-
-        ParticleSystem[] particles = socket.GetComponentsInChildren<ParticleSystem>(true);
-        foreach (ParticleSystem particle in particles)
-        {
-            if (visible)
-            {
-                particle.Play();
-            }
-            else
-            {
-                particle.Stop();
-            }
-        }
+        visuals.gameObject.SetActive(visible);
     }
 
-    private bool IsToolAllowedNow(ToolType toolType)
+    public bool IsToolAllowedNow(ToolType toolType)
     {
         switch (toolType)
         {
-            // First mandatory tool.
             case ToolType.Stick:
                 return !stickInserted;
 
-            // Second mandatory tool.
             case ToolType.Collar:
                 return stickInserted && !collarOn;
 
-            // These can be used in any order after the collar.
             case ToolType.Machete:
                 return collarOn && !macheteUsed;
 
@@ -272,7 +270,6 @@ public class MainScript : MonoBehaviour
             case ToolType.WaterBucket:
                 return collarOn && !elephantCooled;
 
-            // Last mandatory tool.
             case ToolType.ReversalDrug:
                 return PreReversalTasksCompleted() && !reversalDrugAdministered;
 
@@ -282,8 +279,74 @@ public class MainScript : MonoBehaviour
     }
 
     // ----------------------------------------------------
-    // PROCEDURE LOGIC
+    // TOOL COMPLETION LOGIC
     // ----------------------------------------------------
+
+    public bool TryCompleteTool(ToolType toolType)
+    {
+        if (!IsToolAllowedNow(toolType))
+        {
+            SpeakWrongToolGuidance(toolType);
+            Debug.LogWarning("Cannot complete tool right now: " + toolType);
+            return false;
+        }
+
+        switch (toolType)
+        {
+            case ToolType.Stick:
+                SetStickInserted();
+                break;
+
+            case ToolType.Collar:
+                SetCollarSwapped();
+                break;
+
+            case ToolType.Machete:
+                SetMacheteUsed();
+                break;
+
+            case ToolType.SprayCan:
+                SetSprayed();
+                break;
+
+            case ToolType.MedKit:
+                SetHealed();
+                break;
+
+            case ToolType.BloodDraw:
+                SetBloodDrawn();
+                break;
+
+            case ToolType.Stethoscope:
+                SetHeartChecked();
+                break;
+
+            case ToolType.Lineal:
+                SetFootMeasured();
+                break;
+
+            case ToolType.WaterBucket:
+                SetElephantCooled();
+                break;
+
+            case ToolType.ReversalDrug:
+                AdministerReversal();
+                break;
+
+            default:
+                return false;
+        }
+
+        HideAllSocketVisuals();
+
+        if (PreReversalTasksCompleted() && !reversalDrugAdministered && !reversalInstructionGiven)
+        {
+            reversalInstructionGiven = true;
+            SpeakGuidance("All the other tasks are complete. Now use the reversal drug.", true);
+        }
+
+        return true;
+    }
 
     public void SetStickInserted()
     {
@@ -291,160 +354,188 @@ public class MainScript : MonoBehaviour
         {
             stickInserted = true;
             Debug.Log("Step 1 complete: Stick inserted.");
+
+            SpeakGuidance("Now pick up the collar.", true);
         }
     }
 
     public void SetCollarSwapped()
     {
-        if (stickInserted)
+        if (stickInserted && !collarOn)
         {
-            if (!collarOn)
-            {
-                collarOn = true;
-                Debug.Log("Step 2 complete: Collar on.");
-            }
+            collarOn = true;
+            Debug.Log("Step 2 complete: Collar on.");
+
+            SpeakGuidance("Now do all the other tasks with the different tools, until you only have the reversal drug left.", true);
         }
-        else
+        else if (!stickInserted)
         {
-            Debug.LogWarning("Sequence Error: Insert the stick first.");
+            SpeakGuidance("Start by picking up the branch.", false);
         }
     }
 
     public void SetMacheteUsed()
     {
-        if (collarOn)
+        if (collarOn && !macheteUsed)
         {
-            if (!macheteUsed)
-            {
-                macheteUsed = true;
-                Debug.Log("Machete task complete.");
-            }
+            macheteUsed = true;
+            Debug.Log("Machete task complete.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot use machete yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.Machete);
         }
     }
 
     public void SetSprayed()
     {
-        if (collarOn)
+        if (collarOn && !isSprayed)
         {
-            if (!isSprayed)
-            {
-                isSprayed = true;
-                UpdateVisuals();
-                Debug.Log("Spray complete.");
-            }
+            isSprayed = true;
+            UpdateVisuals();
+            Debug.Log("Spray complete.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot spray yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.SprayCan);
         }
     }
 
     public void SetHealed()
     {
-        if (collarOn)
+        if (collarOn && !isHealed)
         {
-            if (!isHealed)
-            {
-                isHealed = true;
-                UpdateVisuals();
-                Debug.Log("Healing complete.");
-            }
+            isHealed = true;
+            UpdateVisuals();
+            Debug.Log("Healing complete.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot heal yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.MedKit);
         }
     }
 
     public void SetBloodDrawn()
     {
-        if (collarOn)
+        if (collarOn && !bloodDrawn)
         {
-            if (!bloodDrawn)
-            {
-                bloodDrawn = true;
-                Debug.Log("Blood drawn.");
-            }
+            bloodDrawn = true;
+            Debug.Log("Blood drawn.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot draw blood yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.BloodDraw);
         }
     }
 
     public void SetHeartChecked()
     {
-        if (collarOn)
+        if (collarOn && !heartChecked)
         {
-            if (!heartChecked)
-            {
-                heartChecked = true;
-                Debug.Log("Heart checked.");
-            }
+            heartChecked = true;
+            Debug.Log("Heart checked.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot check heart yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.Stethoscope);
         }
     }
 
     public void SetFootMeasured()
     {
-        if (collarOn)
+        if (collarOn && !footMeasured)
         {
-            if (!footMeasured)
-            {
-                footMeasured = true;
-                Debug.Log("Foot measured.");
-            }
+            footMeasured = true;
+            Debug.Log("Foot measured.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot measure foot yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.Lineal);
         }
     }
 
     public void SetElephantCooled()
     {
-        if (collarOn)
+        if (collarOn && !elephantCooled)
         {
-            if (!elephantCooled)
-            {
-                elephantCooled = true;
-                Debug.Log("Elephant cooled.");
-            }
+            elephantCooled = true;
+            Debug.Log("Elephant cooled.");
         }
-        else
+        else if (!collarOn)
         {
-            Debug.LogWarning("Cannot cool elephant yet. Put the collar on first.");
+            SpeakWrongToolGuidance(ToolType.WaterBucket);
         }
     }
 
     public void AdministerReversal()
     {
-        if (PreReversalTasksCompleted())
+        if (PreReversalTasksCompleted() && !reversalDrugAdministered)
         {
-            if (!reversalDrugAdministered)
-            {
-                reversalDrugAdministered = true;
-                Debug.Log("Final step complete: Reversal drug administered.");
-                CompleteProcedure();
-            }
+            reversalDrugAdministered = true;
+            Debug.Log("Final step complete: Reversal drug administered.");
+            CompleteProcedure();
         }
-        else
+        else if (!PreReversalTasksCompleted())
         {
-            Debug.LogWarning("Procedure incomplete. Cannot use reversal drug yet.");
-
-            if (conversationManager != null)
-            {
-                conversationManager.SafeSpeak("The procedure is not complete yet.");
-            }
+            SpeakGuidance("The procedure is not complete yet. Finish the other tasks before using the reversal drug.", true);
         }
     }
+
+    // ----------------------------------------------------
+    // NPC SPEECH LOGIC
+    // ----------------------------------------------------
+
+    private void SpeakWrongToolGuidance(ToolType grabbedTool)
+    {
+        if (conversationManager.procedureStarted)
+        {
+            if (!stickInserted)
+            {
+                SpeakGuidance("Start by picking up the branch.", false);
+                return;
+            }
+
+            if (!collarOn)
+            {
+                SpeakGuidance("Now pick up the collar.", false);
+                return;
+            }
+
+            if (grabbedTool == ToolType.ReversalDrug && !PreReversalTasksCompleted())
+            {
+                SpeakGuidance("Use the other tools first. The reversal drug is last.", false);
+                return;
+            }
+
+            SpeakGuidance("Use one of the remaining tools.", false);
+        }
+    }
+
+    private void SpeakGuidance(string text, bool force)
+    {
+        if (!useNpcGuidance)
+        {
+            return;
+        }
+
+        if (conversationManager == null)
+        {
+            Debug.LogWarning("ConversationManager is not assigned. NPC cannot speak: " + text);
+            return;
+        }
+
+        if (!force && Time.time - lastGuidanceTime < guidanceCooldown)
+        {
+            return;
+        }
+
+        lastGuidanceTime = Time.time;
+        conversationManager.SafeSpeak(text);
+    }
+
+    // ----------------------------------------------------
+    // TEXTURE LOGIC
+    // ----------------------------------------------------
 
     private void UpdateVisuals()
     {

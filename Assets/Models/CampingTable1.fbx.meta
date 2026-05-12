@@ -3,7 +3,17 @@ guid: 002b7a9b5a8cfbf4c935470f57a538a2
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Alu
+    second: {fileID: 2100000, guid: c7edd4fa832d3c54894db4f69667f111, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TableTop
+    second: {fileID: 2100000, guid: 4f4ccb48b628ac54885901b6c8dad603, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

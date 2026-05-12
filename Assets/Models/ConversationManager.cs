@@ -27,7 +27,7 @@ public class ConversationManager : MonoBehaviour
 
     private int questionIndexForProcedure = -1;
 
-    private bool procedureStarted = false;
+    public bool procedureStarted = false;
 
     public List<GameObject> itemsAndElephant;
     public List<GameObject> dudesA;
@@ -242,6 +242,7 @@ public class ConversationManager : MonoBehaviour
                 }
                 else
                 {
+                    currentState = ConversationState.WaitingForPlayer;
                     // unclear answer → ask again
                     SafeSpeak("Please say yes when you're ready, or no if you need more time.");
                     return;
