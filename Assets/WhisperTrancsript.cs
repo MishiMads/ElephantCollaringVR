@@ -16,6 +16,9 @@ namespace Whisper.Samples
 
         private bool isListening;
 
+        private float lastGestureTime = 0f;
+        public float gestureCooldown = 1.0f;
+
         [Header("Options")]
         public bool printLanguage = true;
         public bool streamSegments = true;
@@ -199,12 +202,18 @@ namespace Whisper.Samples
 
 
         public void OnPeaceSignDetected()
-        {
-            microphoneRecord.ResetSpeechDetection();
-            UnityEngine.Debug.Log("Peace gesture triggered");
-            if (CurrentState == "Idle")
-                conversationManager.StartPlayerRecording();
-        }
+{
+        if (Time.time - lastGestureTime < gestureCooldown)
+            return;
+
+        lastGestureTime = Time.time;
+
+        microphoneRecord.ResetSpeechDetection();
+        UnityEngine.Debug.Log("Peace gesture triggered");
+
+        if (CurrentState == "Idle")
+        conversationManager.StartPlayerRecording();
+}
     }
 
 

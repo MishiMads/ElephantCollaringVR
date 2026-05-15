@@ -13,6 +13,8 @@ public class ConversationManager : MonoBehaviour
     public WhisperTranscriptionService whisper;
     public EyelidController eyelidController;
 
+    private bool shouldKeepAskingForProcedure = false;
+
     public List<string> dialogueParts;
 
     private int indexDialogue = 0;
@@ -22,10 +24,10 @@ public class ConversationManager : MonoBehaviour
     private bool exitAfterLLM = false;
     private bool isFreeConversationMode = false;
 
-    private int freeQuestionCount = 0;
+    //private int freeQuestionCount = 0;
     private bool waitingForProcedureAnswer = false;
 
-    private int questionIndexForProcedure = -1;
+    //private int questionIndexForProcedure = -1;
 
     public bool procedureStarted = false;
 
@@ -34,6 +36,12 @@ public class ConversationManager : MonoBehaviour
 
     public GameObject procedureObjects;
 
+    string[] procedurePrompts = {
+    "Are you ready for the procedure?",
+    "Would you like to begin the procedure now?",
+    "Ready to start the procedure?",
+    "Do you feel ready to proceed?"
+};
     public enum ConversationState
     {
         Idle,
@@ -135,13 +143,15 @@ public class ConversationManager : MonoBehaviour
 
         if (indexDialogue >= dialogueParts.Count)
         {
-            Debug.Log("Dialogue finished → entering free conversation mode");
+            Debug.Log("Dialogue finished → asking about procedure");
 
-            currentState = ConversationState.FreeConversation;
+            currentState = ConversationState.WaitingForPlayer;
             isFreeConversationMode = true;
             inQuestionLoop = false;
 
-            SafeSpeak("That’s everything. You can ask me anything now.");
+            waitingForProcedureAnswer = true;
+
+            SafeSpeak("That’s everything. Are you ready for the procedure?");
 
             return;
         }
@@ -166,13 +176,13 @@ public class ConversationManager : MonoBehaviour
         waitingForLLMResponse = false;
 
         // 🔥 NEW: handle procedure trigger HERE instead of TTS
-        if (isFreeConversationMode && freeQuestionCount == questionIndexForProcedure)
+        /*if (isFreeConversationMode && freeQuestionCount == questionIndexForProcedure)
         {
             questionIndexForProcedure = -1;
             waitingForProcedureAnswer = true;
 
             StartCoroutine(AskProcedureAfterDelay());
-        }
+        }*/
     }
 
     // 🎤 Player starts speaking (called externally)
@@ -226,18 +236,23 @@ public class ConversationManager : MonoBehaviour
                     Debug.Log("User is ready → starting procedure");
 
                     waitingForProcedureAnswer = false;
+                    shouldKeepAskingForProcedure = false; // 🔥 ADD THIS
 
                     StartProcedure();
 
                     currentState = ConversationState.WaitingForPlayer;
                     return;
                 }
-                else if (IsExitKeyword(playerText)) // your "no"
+                else if (IsExitKeyword(playerText)) // user said no
                 {
-                    Debug.Log("User not ready → continue conversation");
+                    Debug.Log("User not ready → entering free conversation");
 
                     waitingForProcedureAnswer = false;
+                    shouldKeepAskingForProcedure = true; // 🔥 ADD THIS
                     currentState = ConversationState.WaitingForPlayer;
+
+                    SafeSpeak("Okay, what do you want to ask?");
+
                     return;
                 }
                 else
@@ -250,17 +265,17 @@ public class ConversationManager : MonoBehaviour
             }
 
             // 🧠 Count questions
-            freeQuestionCount++;
+            //freeQuestionCount++;
 
-            Debug.Log("Free question count: " + freeQuestionCount);
+            //Debug.Log("Free question count: " + freeQuestionCount);
 
             // 🔥 Every 3 questions → ask about procedure
-            if (!procedureStarted && freeQuestionCount % 3 == 0)
+            /*if (!procedureStarted && freeQuestionCount % 3 == 0)
             {
                 Debug.Log("Will ask procedure AFTER LLM response");
 
                 questionIndexForProcedure = freeQuestionCount;
-            }
+            }*/
 
             // 🧠 Normal LLM flow
             currentState = ConversationState.Processing;
@@ -339,30 +354,32 @@ public class ConversationManager : MonoBehaviour
             // ✅ LLM response finished
             case ConversationState.LLMSpeaking:
 
-
-
-
                 if (exitAfterLLM)
                 {
-                    Debug.Log("LLM finished → exiting loop properly");
-
                     exitAfterLLM = false;
 
                     currentState = ConversationState.NPCSpeaking;
-
                     indexDialogue++;
                     SpeakCurrentDialogue();
                 }
                 else if (isFreeConversationMode)
                 {
+                    // 🔥 NEW BEHAVIOR
+                    if (shouldKeepAskingForProcedure && !procedureStarted)
+                    {
+                        waitingForProcedureAnswer = true;
+                        currentState = ConversationState.WaitingForPlayer;
 
-
-                    currentState = ConversationState.WaitingForPlayer;
+                        SafeSpeak(procedurePrompts[Random.Range(0, procedurePrompts.Length)]);
+                    }
+                    else
+                    {
+                        currentState = ConversationState.WaitingForPlayer;
+                    }
                 }
                 else if (inQuestionLoop)
                 {
                     currentState = ConversationState.WaitingForPlayer;
-
                     SafeSpeak(followUps[Random.Range(0, followUps.Length)]);
                 }
                 else
@@ -437,7 +454,7 @@ public class ConversationManager : MonoBehaviour
     {
         Debug.Log("🚀 PROCEDURE STARTED");
 
-        freeQuestionCount = 0;
+        //freeQuestionCount = 0;
         procedureStarted = true;
         waitingForProcedureAnswer = false;
 
