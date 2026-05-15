@@ -14,14 +14,29 @@ public class Wobble : MonoBehaviour
     private bool _isPouring = false;
     private bool _hasFinishedPouring = false;
 
+    [Header("Pouring Sound")]
+    [SerializeField] private AudioSource pouringAudioSource;
+    [SerializeField] private AudioClip pouringSound;
+
     void Start()
     {
         rend = GetComponent<Renderer>();
+
         if (rend != null)
         {
             mat = rend.material;
+
             if (mat.HasProperty("_Fill"))
                 currentFill = mat.GetFloat("_Fill");
+        }
+
+        if (pouringAudioSource != null)
+        {
+            pouringAudioSource.playOnAwake = false;
+            pouringAudioSource.loop = true;
+
+            if (pouringSound != null)
+                pouringAudioSource.clip = pouringSound;
         }
     }
 
@@ -46,7 +61,10 @@ public class Wobble : MonoBehaviour
             {
                 _isPouring = true;
 
-                if (!pourParticles.isPlaying) pourParticles.Play();
+                if (pourParticles != null && !pourParticles.isPlaying)
+                    pourParticles.Play();
+
+                PlayPouringSound();
 
                 currentFill -= emptySpeed * Time.deltaTime;
                 mat.SetFloat("_Fill", currentFill);
@@ -60,28 +78,44 @@ public class Wobble : MonoBehaviour
                 _isMonitoring = false;
                 _hasFinishedPouring = true;
 
-                if (pourParticles.isPlaying) pourParticles.Stop();
+                if (pourParticles != null && pourParticles.isPlaying)
+                    pourParticles.Stop();
 
-                // Start the routine to disable the whole bucket
+                StopPouringSound();
+
                 StartCoroutine(DisableBucketRoutine());
             }
         }
     }
 
+    private void PlayPouringSound()
+    {
+        if (pouringAudioSource == null)
+            return;
+
+        if (!pouringAudioSource.isPlaying)
+            pouringAudioSource.Play();
+    }
+
+    private void StopPouringSound()
+    {
+        if (pouringAudioSource == null)
+            return;
+
+        if (pouringAudioSource.isPlaying)
+            pouringAudioSource.Stop();
+    }
+
     IEnumerator DisableBucketRoutine()
     {
-        // Optional: Wait a tiny bit so the end of the particle effect 
-        // isn't cut off abruptly when the object vanishes
         yield return new WaitForSeconds(0.2f);
 
-        // Disables the "Water bucket" parent object
         if (transform.parent != null)
         {
             transform.parent.gameObject.SetActive(false);
         }
         else
         {
-            // Fallback if it has no parent
             gameObject.SetActive(false);
         }
     }
