@@ -1,4 +1,4 @@
-using Meta.WitAi.TTS.Utilities;
+﻿using Meta.WitAi.TTS.Utilities;
 using UnityEngine;
 using Whisper.Samples;
 
@@ -243,33 +243,39 @@ public class MainScript : MonoBehaviour
     {
         switch (toolType)
         {
+            // STEP 1: Stick first
             case ToolType.Stick:
                 return !stickInserted;
 
-            case ToolType.Collar:
-                return stickInserted && !collarOn;
+            // STEP 2: Stethoscope second
+            case ToolType.Stethoscope:
+                return stickInserted && !heartChecked;
 
+            // STEP 3: Machete third
             case ToolType.Machete:
-                return collarOn && !macheteUsed;
+                return heartChecked && !macheteUsed;
 
+            // COLLAR → now part of "everything else"
+            case ToolType.Collar:
+                return macheteUsed && !collarOn;
+
+            // EVERYTHING ELSE (any order AFTER machete)
             case ToolType.SprayCan:
-                return collarOn && !isSprayed;
+                return macheteUsed && !isSprayed;
 
             case ToolType.MedKit:
-                return collarOn && !isHealed;
+                return macheteUsed && !isHealed;
 
             case ToolType.BloodDraw:
-                return collarOn && !bloodDrawn;
-
-            case ToolType.Stethoscope:
-                return collarOn && !heartChecked;
+                return macheteUsed && !bloodDrawn;
 
             case ToolType.Lineal:
-                return collarOn && !footMeasured;
+                return macheteUsed && !footMeasured;
 
             case ToolType.WaterBucket:
-                return collarOn && !elephantCooled;
+                return macheteUsed && !elephantCooled;
 
+            // FINAL STEP
             case ToolType.ReversalDrug:
                 return PreReversalTasksCompleted() && !reversalDrugAdministered;
 
@@ -355,33 +361,33 @@ public class MainScript : MonoBehaviour
             stickInserted = true;
             Debug.Log("Step 1 complete: Stick inserted.");
 
-            SpeakGuidance("Now pick up the collar.", true);
+            SpeakGuidance("Now check the heart rate using the stethoscope.", true);
         }
     }
 
     public void SetCollarSwapped()
     {
-        if (stickInserted && !collarOn)
+        if (macheteUsed && !collarOn)
         {
             collarOn = true;
-            Debug.Log("Step 2 complete: Collar on.");
-
-            SpeakGuidance("Now do all the other tasks with the different tools, until you only have the reversal drug left.", true);
+            Debug.Log("Collar on.");
         }
-        else if (!stickInserted)
+        else if (!macheteUsed)
         {
-            SpeakGuidance("Start by picking up the branch.", false);
+            SpeakWrongToolGuidance(ToolType.Collar);
         }
     }
 
     public void SetMacheteUsed()
     {
-        if (collarOn && !macheteUsed)
+        if (heartChecked && !macheteUsed)
         {
             macheteUsed = true;
             Debug.Log("Machete task complete.");
+
+            SpeakGuidance("Now complete the remaining tasks using the other tools.", true);
         }
-        else if (!collarOn)
+        else if (!heartChecked)
         {
             SpeakWrongToolGuidance(ToolType.Machete);
         }
@@ -389,13 +395,13 @@ public class MainScript : MonoBehaviour
 
     public void SetSprayed()
     {
-        if (collarOn && !isSprayed)
+        if (macheteUsed && !isSprayed)
         {
             isSprayed = true;
             UpdateVisuals();
             Debug.Log("Spray complete.");
         }
-        else if (!collarOn)
+        else if (!macheteUsed)
         {
             SpeakWrongToolGuidance(ToolType.SprayCan);
         }
@@ -403,13 +409,13 @@ public class MainScript : MonoBehaviour
 
     public void SetHealed()
     {
-        if (collarOn && !isHealed)
+        if (macheteUsed && !isHealed)
         {
             isHealed = true;
             UpdateVisuals();
             Debug.Log("Healing complete.");
         }
-        else if (!collarOn)
+        else if (!macheteUsed)
         {
             SpeakWrongToolGuidance(ToolType.MedKit);
         }
@@ -417,12 +423,12 @@ public class MainScript : MonoBehaviour
 
     public void SetBloodDrawn()
     {
-        if (collarOn && !bloodDrawn)
+        if (macheteUsed && !bloodDrawn)
         {
             bloodDrawn = true;
             Debug.Log("Blood drawn.");
         }
-        else if (!collarOn)
+        else if (!macheteUsed)
         {
             SpeakWrongToolGuidance(ToolType.BloodDraw);
         }
@@ -430,12 +436,14 @@ public class MainScript : MonoBehaviour
 
     public void SetHeartChecked()
     {
-        if (collarOn && !heartChecked)
+        if (stickInserted && !heartChecked)
         {
             heartChecked = true;
             Debug.Log("Heart checked.");
+
+            SpeakGuidance("Now use the machete to cut the tree.", true);
         }
-        else if (!collarOn)
+        else if (!stickInserted)
         {
             SpeakWrongToolGuidance(ToolType.Stethoscope);
         }
@@ -443,12 +451,12 @@ public class MainScript : MonoBehaviour
 
     public void SetFootMeasured()
     {
-        if (collarOn && !footMeasured)
+        if (macheteUsed && !footMeasured)
         {
             footMeasured = true;
             Debug.Log("Foot measured.");
         }
-        else if (!collarOn)
+        else if (!macheteUsed)
         {
             SpeakWrongToolGuidance(ToolType.Lineal);
         }
@@ -456,12 +464,12 @@ public class MainScript : MonoBehaviour
 
     public void SetElephantCooled()
     {
-        if (collarOn && !elephantCooled)
+        if (macheteUsed && !elephantCooled)
         {
             elephantCooled = true;
             Debug.Log("Elephant cooled.");
         }
-        else if (!collarOn)
+        else if (!macheteUsed)
         {
             SpeakWrongToolGuidance(ToolType.WaterBucket);
         }
@@ -487,29 +495,40 @@ public class MainScript : MonoBehaviour
 
     private void SpeakWrongToolGuidance(ToolType grabbedTool)
     {
-        if (conversationManager.procedureStarted)
+        if (!conversationManager.procedureStarted)
+            return;
+
+        // STEP 1: Stick
+        if (!stickInserted)
         {
-            if (!stickInserted)
-            {
-                SpeakGuidance("Start by picking up the branch.", false);
-                return;
-            }
-
-            if (!collarOn)
-            {
-                SpeakGuidance("Now pick up the collar.", false);
-                return;
-            }
-
-            if (grabbedTool == ToolType.ReversalDrug && !PreReversalTasksCompleted())
-            {
-                SpeakGuidance("Use the other tools first. The reversal drug is last.", false);
-                return;
-            }
-
-            SpeakGuidance("Use one of the remaining tools.", false);
+            SpeakGuidance("Start by picking up the branch.", false);
+            return;
         }
-    }
+
+        // STEP 2: Stethoscope
+        if (!heartChecked)
+        {
+            SpeakGuidance("Now check the heart rate using the stethoscope.", false);
+            return;
+        }
+
+        // STEP 3: Machete
+        if (!macheteUsed)
+        {
+            SpeakGuidance("Now use the machete to cut the tree.", false);
+            return;
+        }
+
+        // FINAL STEP BLOCK
+        if (grabbedTool == ToolType.ReversalDrug && !PreReversalTasksCompleted())
+        {
+            SpeakGuidance("Use the other tools first. The reversal drug is last.", false);
+            return;
+        }
+
+        // EVERYTHING ELSE
+        SpeakGuidance("Use one of the remaining tools.", false);
+    }   
 
     private void SpeakGuidance(string text, bool force)
     {

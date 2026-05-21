@@ -1,9 +1,0 @@
-﻿Quest 3 Performance Recording
-Session started: 11-05-2026 13:39:52
-Target refresh rate: 72 Hz
-----------------------------------------------------------------------------------------------------
-Time(s)	Avg FPS	Avg Frame Time (ms)	Avg CPU Frame Time (ms)	Avg GPU Frame Time (ms)	CPU Budget Used (%)	GPU Budget Used (%)	Memory Allocated (MB)
-2,75	0,3	3593,51	3,83	0,00	27,6	0,0	1124,2
-3,75	150,9	6,63	54,33	0,37	391,2	2,7	1125,7
-----------------------------------------------------------------------------------------------------
-Session ended: 11-05-2026 13:39:56

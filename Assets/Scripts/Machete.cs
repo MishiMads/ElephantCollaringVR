@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Machete : MonoBehaviour
@@ -9,37 +9,44 @@ public class Machete : MonoBehaviour
     [SerializeField] private AudioClip cutSound;
     [SerializeField] private float delayBeforeBushDisappears = 0.3f;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField][Range(0f, 1f)] private float volume = 0.3f;
+
     private bool hasCut = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if (hasCut) return;
 
-        if (other.CompareTag("SnapZone"))
-        {
-            if (other.transform.parent != null)
-            {
-                hasCut = true;
+        if (!other.CompareTag("SnapZone")) return;
 
-                GameObject bushParent = other.transform.parent.gameObject;
+        var socket = other.GetComponent<ToolSocket>();
 
-                StartCoroutine(CutBushRoutine(bushParent, other));
-            }
-        }
+        // ONLY allow specific target
+        if (socket == null || socket.socketID != targetSocketID)
+            return;
+
+        if (other.transform.parent == null)
+            return;
+
+        hasCut = true;
+
+        GameObject bushParent = other.transform.parent.gameObject;
+
+        StartCoroutine(CutBushRoutine(bushParent, other));
     }
 
     private IEnumerator CutBushRoutine(GameObject bushParent, Collider snapZoneCollider)
     {
-        // Prevent the trigger from firing again
         snapZoneCollider.enabled = false;
 
-        // Play sound at the machete position
-        if (cutSound != null)
+        // Play sound using AudioSource with volume control
+        if (cutSound != null && audioSource != null)
         {
-            AudioSource.PlayClipAtPoint(cutSound, transform.position);
+            audioSource.PlayOneShot(cutSound, volume);
         }
 
-        // Wait before removing the bush
         yield return new WaitForSeconds(delayBeforeBushDisappears);
 
         Destroy(bushParent);

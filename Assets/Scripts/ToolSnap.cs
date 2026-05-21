@@ -13,20 +13,77 @@ public class ToolSnap : MonoBehaviour
     private Transform activeTarget;
     private bool isInZone = false;
 
+    public ToolType toolType;
+    private bool isCurrentlyGrabbed = false;
+
     void Start()
     {
         grabbable = GetComponentInChildren<Grabbable>();
         if (grabbable != null) grabbable.WhenPointerEventRaised += HandlePointerEvent;
     }
 
+    private Coroutine releaseRoutine;
+
     private void HandlePointerEvent(PointerEvent evt)
     {
-        if (evt.Type == PointerEventType.Unselect && isInZone && activeTarget != null)
+        if (evt.Type == PointerEventType.Select)
+        {
+            isCurrentlyGrabbed = true;
+
+            if (MainScript.Instance != null &&
+                MainScript.Instance.IsToolAllowedNow(toolType))
+            {
+                MainScript.Instance.OnToolGrabbed(toolType);
+            }
+
+            if (releaseRoutine != null)
+            {
+                StopCoroutine(releaseRoutine);
+                releaseRoutine = null;
+            }
+        }
+
+        if (evt.Type == PointerEventType.Unselect)
+        {
+            isCurrentlyGrabbed = false;
+
+            if (releaseRoutine != null)
+                StopCoroutine(releaseRoutine);
+
+            releaseRoutine = StartCoroutine(DelayedReleaseCheck());
+        }
+    }
+
+    private IEnumerator DelayedReleaseCheck()
+    {
+        yield return new WaitForSeconds(0.15f);
+
+        // If grabbed again → DO NOTHING
+        if (isCurrentlyGrabbed)
+            yield break;
+
+        // Snap only if in zone
+        if (isInZone && activeTarget != null)
+        {
             SnapToTarget();
+        }
+
+        // Now it's a real release
+        if (MainScript.Instance != null)
+        {
+            MainScript.Instance.OnToolReleased();
+        }
     }
 
     private void SnapToTarget()
     {
+        // Check for Measuring Tape
+        if (TryGetComponent<MeasuringTapeLogic>(out var tape))
+        {
+            tape.UseTape();
+            return;
+        }
+
         // Check for Spray Can
         if (TryGetComponent<SprayCanLogic>(out var spray))
         {
@@ -46,6 +103,8 @@ public class ToolSnap : MonoBehaviour
         {
             return;
         }
+
+
 
         if (TryGetComponent<CollarSwap>(out var swapScript)) swapScript.MakeSwap();
 

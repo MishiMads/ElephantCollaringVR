@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Wobble : MonoBehaviour
@@ -6,9 +6,12 @@ public class Wobble : MonoBehaviour
     Renderer rend;
     Material mat;
 
-    [Header("Pouring Settings")]
+    [Header("Pour Settings")]
     public ParticleSystem pourParticles;
-    public float emptySpeed = 0.05f;
+
+    [Tooltip("Total time in seconds for the bucket to empty")]
+    public float pourDuration = 3f;
+
     private float currentFill = 1f;
     private bool _isMonitoring = false;
     private bool _isPouring = false;
@@ -42,50 +45,68 @@ public class Wobble : MonoBehaviour
 
     public void StartAutoPour()
     {
-        if (!_hasFinishedPouring)
-        {
-            _isMonitoring = true;
-        }
+        if (_hasFinishedPouring) return;
+
+        _isMonitoring = true;
     }
 
     void Update()
     {
-        if (_hasFinishedPouring || (!_isMonitoring && !_isPouring)) return;
+        // HARD STOP once finished
+        if (_hasFinishedPouring) return;
+
+        if (!_isMonitoring && !_isPouring) return;
 
         float currentZ = transform.parent.localEulerAngles.z;
         if (currentZ > 180) currentZ -= 360;
 
+        // Start pouring when tilted enough
         if (Mathf.Abs(currentZ) >= 56.25f || _isPouring)
         {
             if (currentFill > 0)
             {
                 _isPouring = true;
 
+                // Play particles
                 if (pourParticles != null && !pourParticles.isPlaying)
                     pourParticles.Play();
 
+                // Play sound
                 PlayPouringSound();
 
-                currentFill -= emptySpeed * Time.deltaTime;
-                mat.SetFloat("_Fill", currentFill);
+                // Drain over fixed duration
+                float drainRate = 1f / pourDuration;
+                currentFill -= drainRate * Time.deltaTime;
+
+                if (mat != null)
+                    mat.SetFloat("_Fill", currentFill);
             }
             else
             {
-                currentFill = 0;
-                mat.SetFloat("_Fill", 0);
-
-                _isPouring = false;
-                _isMonitoring = false;
-                _hasFinishedPouring = true;
-
-                if (pourParticles != null && pourParticles.isPlaying)
-                    pourParticles.Stop();
-
-                StopPouringSound();
-
-                StartCoroutine(DisableBucketRoutine());
+                FinishPouring();
             }
         }
+    }
+
+    private void FinishPouring()
+    {
+        currentFill = 0;
+        if (mat != null)
+            mat.SetFloat("_Fill", 0);
+
+        _isPouring = false;
+        _isMonitoring = false;
+        _hasFinishedPouring = true;
+
+        // Stop particles
+        if (pourParticles != null && pourParticles.isPlaying)
+            pourParticles.Stop();
+
+        // Stop sound
+        StopPouringSound();
+
+        // Disable/destroy bucket
+        StartCoroutine(DisableBucketRoutine());
     }
 
     private void PlayPouringSound()
@@ -112,11 +133,11 @@ public class Wobble : MonoBehaviour
 
         if (transform.parent != null)
         {
-            transform.parent.gameObject.SetActive(false);
+            Destroy(transform.parent.gameObject); // cleaner than SetActive(false)
         }
         else
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

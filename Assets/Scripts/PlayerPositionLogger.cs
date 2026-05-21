@@ -95,8 +95,7 @@ public class PlayerPositionLogger : MonoBehaviour
 
             _writer.WriteLine(line);
 
-            // Debug output
-            Debug.Log($"[PlayerPositionLogger] {line}");
+            
         }
     }
 
